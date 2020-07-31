@@ -1,0 +1,65 @@
+hscale=auto;
+numbering=no;
+defcolor lightblue="172,172,221";
+defcolor lightgreen="172,221,172";
+defcolor lightred="221,172,172";
+defcolor lightgrey="247,247,247";
+MS [label="MS",fill.color=lightblue],
+BSC [label="BSC",fill.color=lightgreen],
+MoSC [label="MSC",fill.color=lightgreen],
+PSTN [label="PSTN/PLMN", fill.color="lightgreen"];
+[]:;
+MS--MoSC: \bRR Establishment \[CM-SERVICE-REQ\]
+[number="no",color=lightgrey]
+{
+[]:;
+};
+MS--MoSC: \bAuthentication (opt.)
+[number="no",color=lightgrey]
+{
+[]:;
+};
+MS--MoSC: \bRR Ciphering
+[number="no",color=lightgrey]
+{
+[]:;
+};
+MS--PSTN: \bMobile originating call - early assignment
+[number="no",color=lightgrey]
+{
+MS->MoSC:	SETUP
+		\iCM/CC
+[number="yes"];
+MS<-MoSC:	CALL-PROCEEDING
+		\iCM/CC
+[number="yes"];
+MS<-BSC:	ASSIGNMENT-COMMAND
+		\iRR
+[number="yes"];
+MS->BSC:	ASSIGNMENT-COMPLETE
+		\iRR
+[number="yes"];
+MoSC->PSTN:	IAM
+		\iISDN-UP
+[number="yes"];
+MoSC<-PSTN:	ACM
+		\iISDN-UP
+[number="yes"];
+MS<-MoSC:	ALERTING
+		\iCM/CC
+[number="yes"];
+MS--MS:		Freizeichen...;
+
+...:;
+MoSC<-PSTN:	ANM
+		\iISDN-UP
+[number="yes"];
+MS<-MoSC:	CONNECT
+		\iCM/CC
+[number="yes"];
+MS->MoSC:	CONNECT-ACK
+		\iCM - CC
+[number="yes"];
+block MS<->PSTN: Übertragung von Nutzdaten auf
+		 reserviertem Kanal.;
+};

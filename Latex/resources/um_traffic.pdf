@@ -1,0 +1,456 @@
+%!
+%!PS-Adobe-2.0
+%
+% Wireshark - Network traffic analyzer
+% By Gerald Combs <gerald@wireshark.org>
+% Copyright 1998 Gerald Combs
+%
+%%Creator: Wireshark
+%%Title: Wireshark output
+%%DocumentFonts: Helvetica Monaco
+%%EndComments
+%!
+
+%
+% Ghostscript http://ghostscript.com/ can convert postscript to pdf files.
+%
+% To convert this postscript file to pdf, type (for US letter format):
+% ps2pdf filename.ps
+%
+% or (for A4 format):
+% ps2pdf -sPAPERSIZE=a4 filename.ps
+%
+% ... and of course replace filename.ps by your current filename.
+%
+% The pdfmark's below will help converting to a pdf file, and have no
+% effect when printing the postscript directly.
+% 
+
+%   This line is necessary if the file should be printable, and not just used
+%   for distilling into PDF:
+%
+/pdfmark where {pop} {userdict /pdfmark /cleartomark load put} ifelse
+%
+%   This tells PDF viewers to display bookmarks when the document is opened:
+%
+[/PageMode /UseOutlines /DOCVIEW pdfmark
+
+% Get the Imagable Area of the page
+clippath pathbbox
+
+% Set vmax to the vertical size of the page,
+% hmax to the horizontal size of the page.
+/vmax exch def
+/hmax exch def
+pop pop		% junk
+
+% 1/2-inch margins
+/lmargin 36 def					% left margin
+/tmargin vmax 56 sub def		% top margin
+/bmargin 36 def					% bottom margin
+/pagenumtab hmax 36 sub def		% right margin
+
+% Counters
+/thispagenum 1 def
+
+% Strings
+/pagenostr 7 string def
+
+
+/formfeed {
+	printpagedecorations
+	showpage
+	
+	% we need a new current point after showpage is done
+	lmargin		% X
+	vpos 		% Y
+	moveto
+	/vpos tmargin def
+} def
+
+% Prints text with possible indenting
+/putline_single {
+	exch 10 mul lmargin add		% X
+	vpos 						% Y
+	moveto
+	show
+
+	/vpos vpos 10 sub def
+
+	vpos 5 sub bmargin le 		% is vpos <= bottom margin?
+	{
+		formfeed
+	}
+	if							% then formfeed and start at top
+} def
+
+
+% Prints text with possible indenting and line wrap
+/putline {
+	/text exch def
+	/indent exch def
+	
+	% wrapat = width / sizeof font (remember: monospaced font)
+	/pagewidth pagenumtab lmargin sub def
+	/cwidth (A) stringwidth pop def
+	/wrapat pagewidth cwidth div cvi def
+		
+	text length wrapat le {
+		% print line
+		indent text 0 text length getinterval putline_single
+	}{
+		% print the lines first part
+		indent text 0 wrapat getinterval putline_single
+		% print wrapped rest
+		indent text wrapat text length wrapat sub getinterval putline
+	}
+	ifelse
+} def
+
+
+% Prints the page number at the top right
+/printpagedecorations {
+	gsave
+		% Set the font to 8 point
+		/Helvetica findfont 8 scalefont setfont
+
+		% title
+		lmargin						% X
+		vmax 36 sub					% Y
+		moveto
+		ws_pagetitle show
+
+		% this page number
+		pagenumtab (Page ) stringwidth pop sub thispagenum pagenostr cvs stringwidth pop sub 		% X
+		vmax 36 sub					% Y
+		moveto
+		(Page ) show
+		thispagenum pagenostr cvs show
+
+		% thispagenum++
+		/thispagenum thispagenum 1 add def
+		
+		% line at top of page
+		lmargin						% X
+		vmax 38 sub					% Y
+		moveto
+		
+		pagenumtab					% X
+		vmax 38 sub					% Y
+		lineto
+		stroke
+		
+		% line at bottom of page
+		lmargin						% X
+		bmargin						% Y
+		moveto
+		
+		pagenumtab					% X
+		bmargin						% Y
+		lineto
+		stroke
+		
+	grestore
+} def
+	
+% Reset the vertical position
+/vpos tmargin def
+
+% Set the font to 8 point
+/Monaco findfont 8 scalefont setfont
+
+%% the page title
+/ws_pagetitle (/home/basti/Dropbox/Masterarbeit/wireshark-traffic/mobile--ms-compal_c88--eplus-bts_171402.pcapng - Wireshark 1.12.1 (Git Rev Unknown from unknown)) def
+
+0 (No.     Destination           Protocol ) putline
+[/Dest /__frame293__ /Title (    293 127.0.0.1             LAPDm    U P, func=SABM\(DTAP\) \(MM\) Location Updating Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame293__ /DEST pdfmark
+0 (    293 127.0.0.1             LAPDm    U P, func=SABM\(DTAP\) \(MM\) Location Updating Request ) putline
+[/Dest /__frame298__ /Title (    298 127.0.0.1             LAPDm    U F, func=UA\(DTAP\) \(MM\) Location Updating Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame298__ /DEST pdfmark
+0 (    298 127.0.0.1             LAPDm    U F, func=UA\(DTAP\) \(MM\) Location Updating Request ) putline
+[/Dest /__frame299__ /Title (    299 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=0\(DTAP\) \(MM\) Identity Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame299__ /DEST pdfmark
+0 (    299 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=0\(DTAP\) \(MM\) Identity Request ) putline
+[/Dest /__frame301__ /Title (    301 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=0\(DTAP\) \(MM\) Identity Response )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame301__ /DEST pdfmark
+0 (    301 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=0\(DTAP\) \(MM\) Identity Response ) putline
+[/Dest /__frame303__ /Title (    303 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=1\(DTAP\) \(MM\) Identity Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame303__ /DEST pdfmark
+0 (    303 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=1\(DTAP\) \(MM\) Identity Request ) putline
+[/Dest /__frame307__ /Title (    307 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=1\(DTAP\) \(MM\) Identity Response )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame307__ /DEST pdfmark
+0 (    307 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=1\(DTAP\) \(MM\) Identity Response ) putline
+[/Dest /__frame309__ /Title (    309 127.0.0.1             LAPDm    I P, N\(R\)=1, N\(S\)=1\(DTAP\) \(MM\) Identity Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame309__ /DEST pdfmark
+0 (    309 127.0.0.1             LAPDm    I P, N\(R\)=1, N\(S\)=1\(DTAP\) \(MM\) Identity Request ) putline
+[/Dest /__frame313__ /Title (    313 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=2\(DTAP\) \(MM\) Authentication Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame313__ /DEST pdfmark
+0 (    313 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=2\(DTAP\) \(MM\) Authentication Request ) putline
+[/Dest /__frame323__ /Title (    323 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=2\(DTAP\) \(MM\) Authentication Response )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame323__ /DEST pdfmark
+0 (    323 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=2\(DTAP\) \(MM\) Authentication Response ) putline
+[/Dest /__frame329__ /Title (    329 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=3\(DTAP\) \(RR\) Ciphering Mode Command )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame329__ /DEST pdfmark
+0 (    329 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=3\(DTAP\) \(RR\) Ciphering Mode Command ) putline
+[/Dest /__frame331__ /Title (    331 127.0.0.1             LAPDm    I, N\(R\)=4, N\(S\)=3\(DTAP\) \(RR\) Ciphering Mode Complete )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame331__ /DEST pdfmark
+0 (    331 127.0.0.1             LAPDm    I, N\(R\)=4, N\(S\)=3\(DTAP\) \(RR\) Ciphering Mode Complete ) putline
+[/Dest /__frame333__ /Title (    333 127.0.0.1             LAPDm    I, N\(R\)=4, N\(S\)=4\(DTAP\) \(MM\) Identity Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame333__ /DEST pdfmark
+0 (    333 127.0.0.1             LAPDm    I, N\(R\)=4, N\(S\)=4\(DTAP\) \(MM\) Identity Request ) putline
+[/Dest /__frame335__ /Title (    335 127.0.0.1             LAPDm    I, N\(R\)=5, N\(S\)=4\(DTAP\) \(MM\) Identity Response )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame335__ /DEST pdfmark
+0 (    335 127.0.0.1             LAPDm    I, N\(R\)=5, N\(S\)=4\(DTAP\) \(MM\) Identity Response ) putline
+[/Dest /__frame339__ /Title (    339 127.0.0.1             LAPDm    I, N\(R\)=5, N\(S\)=5\(DTAP\) \(MM\) Location Updating Accept )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame339__ /DEST pdfmark
+0 (    339 127.0.0.1             LAPDm    I, N\(R\)=5, N\(S\)=5\(DTAP\) \(MM\) Location Updating Accept ) putline
+[/Dest /__frame341__ /Title (    341 127.0.0.1             LAPDm    I, N\(R\)=6, N\(S\)=5\(DTAP\) \(MM\) TMSI Reallocation Complete )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame341__ /DEST pdfmark
+0 (    341 127.0.0.1             LAPDm    I, N\(R\)=6, N\(S\)=5\(DTAP\) \(MM\) TMSI Reallocation Complete ) putline
+[/Dest /__frame348__ /Title (    348 127.0.0.1             LAPDm    I, N\(R\)=5, N\(S\)=6 \(Fragment\))   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame348__ /DEST pdfmark
+0 (    348 127.0.0.1             LAPDm    I, N\(R\)=5, N\(S\)=6 \(Fragment\)) putline
+[/Dest /__frame353__ /Title (    353 127.0.0.1             LAPDm    I P, N\(R\)=6, N\(S\)=6 \(Fragment\))   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame353__ /DEST pdfmark
+0 (    353 127.0.0.1             LAPDm    I P, N\(R\)=6, N\(S\)=6 \(Fragment\)) putline
+[/Dest /__frame355__ /Title (    355 127.0.0.1             LAPDm    I, N\(R\)=6, N\(S\)=7\(DTAP\) \(MM\) MM Information )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame355__ /DEST pdfmark
+0 (    355 127.0.0.1             LAPDm    I, N\(R\)=6, N\(S\)=7\(DTAP\) \(MM\) MM Information ) putline
+[/Dest /__frame357__ /Title (    357 127.0.0.1             LAPDm    I, N\(R\)=6, N\(S\)=0\(DTAP\) \(RR\) Channel Release )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame357__ /DEST pdfmark
+0 (    357 127.0.0.1             LAPDm    I, N\(R\)=6, N\(S\)=0\(DTAP\) \(RR\) Channel Release ) putline
+[/Dest /__frame2987__ /Title (   2987 127.0.0.1             LAPDm    U P, func=SABM\(DTAP\) \(MM\) CM Service Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame2987__ /DEST pdfmark
+0 (   2987 127.0.0.1             LAPDm    U P, func=SABM\(DTAP\) \(MM\) CM Service Request ) putline
+[/Dest /__frame2992__ /Title (   2992 127.0.0.1             LAPDm    U F, func=UA\(DTAP\) \(MM\) CM Service Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame2992__ /DEST pdfmark
+0 (   2992 127.0.0.1             LAPDm    U F, func=UA\(DTAP\) \(MM\) CM Service Request ) putline
+[/Dest /__frame2994__ /Title (   2994 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=0\(DTAP\) \(MM\) Identity Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame2994__ /DEST pdfmark
+0 (   2994 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=0\(DTAP\) \(MM\) Identity Request ) putline
+[/Dest /__frame2996__ /Title (   2996 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=0\(DTAP\) \(MM\) Identity Response )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame2996__ /DEST pdfmark
+0 (   2996 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=0\(DTAP\) \(MM\) Identity Response ) putline
+[/Dest /__frame2997__ /Title (   2997 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=1\(DTAP\) \(MM\) Authentication Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame2997__ /DEST pdfmark
+0 (   2997 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=1\(DTAP\) \(MM\) Authentication Request ) putline
+[/Dest /__frame3007__ /Title (   3007 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=1\(DTAP\) \(MM\) Authentication Response )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame3007__ /DEST pdfmark
+0 (   3007 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=1\(DTAP\) \(MM\) Authentication Response ) putline
+[/Dest /__frame3008__ /Title (   3008 127.0.0.1             LAPDm    I P, N\(R\)=1, N\(S\)=1\(DTAP\) \(MM\) Authentication Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame3008__ /DEST pdfmark
+0 (   3008 127.0.0.1             LAPDm    I P, N\(R\)=1, N\(S\)=1\(DTAP\) \(MM\) Authentication Request ) putline
+[/Dest /__frame3012__ /Title (   3012 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=2\(DTAP\) \(RR\) Ciphering Mode Command )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame3012__ /DEST pdfmark
+0 (   3012 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=2\(DTAP\) \(RR\) Ciphering Mode Command ) putline
+[/Dest /__frame3014__ /Title (   3014 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=2\(DTAP\) \(RR\) Ciphering Mode Complete )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame3014__ /DEST pdfmark
+0 (   3014 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=2\(DTAP\) \(RR\) Ciphering Mode Complete ) putline
+[/Dest /__frame3023__ /Title (   3023 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=0 \(Fragment\))   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame3023__ /DEST pdfmark
+0 (   3023 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=0 \(Fragment\)) putline
+[/Dest /__frame3025__ /Title (   3025 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=1 \(Fragment\))   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame3025__ /DEST pdfmark
+0 (   3025 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=1 \(Fragment\)) putline
+[/Dest /__frame3029__ /Title (   3029 127.0.0.1             GSM SMS  I, N\(R\)=0, N\(S\)=2\(DTAP\) \(SMS\) CP-DATA \(RP\) RP-DATA \(MS to Network\) )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame3029__ /DEST pdfmark
+0 (   3029 127.0.0.1             GSM SMS  I, N\(R\)=0, N\(S\)=2\(DTAP\) \(SMS\) CP-DATA \(RP\) RP-DATA \(MS to Network\) ) putline
+[/Dest /__frame3030__ /Title (   3030 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=0\(DTAP\) \(SMS\) CP-ACK )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame3030__ /DEST pdfmark
+0 (   3030 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=0\(DTAP\) \(SMS\) CP-ACK ) putline
+[/Dest /__frame3033__ /Title (   3033 127.0.0.1             GSM SMS  I, N\(R\)=3, N\(S\)=1\(DTAP\) \(SMS\) CP-DATA \(RP\) RP-ACK \(Network to MS\) )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame3033__ /DEST pdfmark
+0 (   3033 127.0.0.1             GSM SMS  I, N\(R\)=3, N\(S\)=1\(DTAP\) \(SMS\) CP-DATA \(RP\) RP-ACK \(Network to MS\) ) putline
+[/Dest /__frame3037__ /Title (   3037 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=3\(DTAP\) \(SMS\) CP-ACK )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame3037__ /DEST pdfmark
+0 (   3037 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=3\(DTAP\) \(SMS\) CP-ACK ) putline
+[/Dest /__frame3040__ /Title (   3040 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=3\(DTAP\) \(RR\) Channel Release )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame3040__ /DEST pdfmark
+0 (   3040 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=3\(DTAP\) \(RR\) Channel Release ) putline
+[/Dest /__frame4630__ /Title (   4630 127.0.0.1             LAPDm    U P, func=SABM\(DTAP\) \(MM\) CM Service Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4630__ /DEST pdfmark
+0 (   4630 127.0.0.1             LAPDm    U P, func=SABM\(DTAP\) \(MM\) CM Service Request ) putline
+[/Dest /__frame4635__ /Title (   4635 127.0.0.1             LAPDm    U F, func=UA\(DTAP\) \(MM\) CM Service Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4635__ /DEST pdfmark
+0 (   4635 127.0.0.1             LAPDm    U F, func=UA\(DTAP\) \(MM\) CM Service Request ) putline
+[/Dest /__frame4637__ /Title (   4637 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=0\(DTAP\) \(MM\) Identity Request )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4637__ /DEST pdfmark
+0 (   4637 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=0\(DTAP\) \(MM\) Identity Request ) putline
+[/Dest /__frame4639__ /Title (   4639 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=0\(DTAP\) \(MM\) Identity Response )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4639__ /DEST pdfmark
+0 (   4639 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=0\(DTAP\) \(MM\) Identity Response ) putline
+[/Dest /__frame4640__ /Title (   4640 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=1\(DTAP\) \(RR\) Ciphering Mode Command )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4640__ /DEST pdfmark
+0 (   4640 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=1\(DTAP\) \(RR\) Ciphering Mode Command ) putline
+[/Dest /__frame4645__ /Title (   4645 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=1\(DTAP\) \(RR\) Ciphering Mode Complete )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4645__ /DEST pdfmark
+0 (   4645 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=1\(DTAP\) \(RR\) Ciphering Mode Complete ) putline
+[/Dest /__frame4646__ /Title (   4646 127.0.0.1             LAPDm    I P, N\(R\)=1, N\(S\)=1\(DTAP\) \(RR\) Ciphering Mode Command )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4646__ /DEST pdfmark
+0 (   4646 127.0.0.1             LAPDm    I P, N\(R\)=1, N\(S\)=1\(DTAP\) \(RR\) Ciphering Mode Command ) putline
+[/Dest /__frame4650__ /Title (   4650 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=2\(DTAP\) \(CC\) Setup )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4650__ /DEST pdfmark
+0 (   4650 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=2\(DTAP\) \(CC\) Setup ) putline
+[/Dest /__frame4654__ /Title (   4654 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=2\(DTAP\) \(CC\) Call Proceeding )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4654__ /DEST pdfmark
+0 (   4654 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=2\(DTAP\) \(CC\) Call Proceeding ) putline
+[/Dest /__frame4658__ /Title (   4658 127.0.0.1             LAPDm/GSM MAP I, N\(R\)=3, N\(S\)=3\(DTAP\) \(CC\) Facility \(GSM MAP\) invoke notifySS )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4658__ /DEST pdfmark
+0 (   4658 127.0.0.1             LAPDm/GSM MAP I, N\(R\)=3, N\(S\)=3\(DTAP\) \(CC\) Facility \(GSM MAP\) invoke notifySS ) putline
+[/Dest /__frame4661__ /Title (   4661 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=4 \(Fragment\))   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4661__ /DEST pdfmark
+0 (   4661 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=4 \(Fragment\)) putline
+[/Dest /__frame4663__ /Title (   4663 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=5\(DTAP\) \(RR\) Assignment Command )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4663__ /DEST pdfmark
+0 (   4663 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=5\(DTAP\) \(RR\) Assignment Command ) putline
+[/Dest /__frame4668__ /Title (   4668 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=0\(DTAP\) \(RR\) Assignment Complete )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4668__ /DEST pdfmark
+0 (   4668 127.0.0.1             LAPDm    I, N\(R\)=0, N\(S\)=0\(DTAP\) \(RR\) Assignment Complete ) putline
+[/Dest /__frame4670__ /Title (   4670 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=0\(DTAP\) \(CC\) Progress )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4670__ /DEST pdfmark
+0 (   4670 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=0\(DTAP\) \(CC\) Progress ) putline
+[/Dest /__frame4693__ /Title (   4693 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=1\(DTAP\) \(CC\) Progress )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4693__ /DEST pdfmark
+0 (   4693 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=1\(DTAP\) \(CC\) Progress ) putline
+[/Dest /__frame4695__ /Title (   4695 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=2\(DTAP\) \(CC\) Alerting )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4695__ /DEST pdfmark
+0 (   4695 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=2\(DTAP\) \(CC\) Alerting ) putline
+[/Dest /__frame4732__ /Title (   4732 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=3\(DTAP\) \(CC\) Connect )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4732__ /DEST pdfmark
+0 (   4732 127.0.0.1             LAPDm    I, N\(R\)=1, N\(S\)=3\(DTAP\) \(CC\) Connect ) putline
+[/Dest /__frame4736__ /Title (   4736 127.0.0.1             LAPDm    I, N\(R\)=4, N\(S\)=1\(DTAP\) \(CC\) Connect Acknowledge )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4736__ /DEST pdfmark
+0 (   4736 127.0.0.1             LAPDm    I, N\(R\)=4, N\(S\)=1\(DTAP\) \(CC\) Connect Acknowledge ) putline
+[/Dest /__frame4777__ /Title (   4777 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=4\(DTAP\) \(CC\) Disconnect )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4777__ /DEST pdfmark
+0 (   4777 127.0.0.1             LAPDm    I, N\(R\)=2, N\(S\)=4\(DTAP\) \(CC\) Disconnect ) putline
+[/Dest /__frame4781__ /Title (   4781 127.0.0.1             LAPDm    I, N\(R\)=5, N\(S\)=2\(DTAP\) \(CC\) Release )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4781__ /DEST pdfmark
+0 (   4781 127.0.0.1             LAPDm    I, N\(R\)=5, N\(S\)=2\(DTAP\) \(CC\) Release ) putline
+[/Dest /__frame4783__ /Title (   4783 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=5\(DTAP\) \(CC\) Release Complete )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4783__ /DEST pdfmark
+0 (   4783 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=5\(DTAP\) \(CC\) Release Complete ) putline
+[/Dest /__frame4791__ /Title (   4791 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=6\(DTAP\) \(RR\) Channel Release )   /OUT pdfmark
+[/View [/XYZ -4 currentpoint matrix currentmatrix matrix defaultmatrix
+matrix invertmatrix matrix concatmatrix transform exch pop 20 add null]
+/Dest /__frame4791__ /DEST pdfmark
+0 (   4791 127.0.0.1             LAPDm    I, N\(R\)=3, N\(S\)=6\(DTAP\) \(RR\) Channel Release ) putline
+
+printpagedecorations
+showpage
+
+%%EOF
+

@@ -1,0 +1,117 @@
+\documentclass[12pt,fleqn, toc=listof, parskip]{scrreprt}
+
+%%% INCLUDE PACKAGES %%%
+\input{misc/packages}
+
+%%% INCLUDE COMMANDS %%%
+\input{misc/commands}
+
+%%% INITIALISIERUNG
+% Hier wird das Dokument initialisiert und bestimmte Formatierungsbefehle ausgeführt. %%%
+\defaulthyphenchar=127 % sagt latex das der "Bindestrich" der aktuellen font das Trennzeichen ist. Ermöglicht Anwendung auf kombinierte Wörter wie München-Vorstadt
+\hyphenation{Se-bas-ti-an Su-per-ca-li-fra-gi-li-sti-cex-pi-a-li-do-ci-ous Lei-tungs-ver-mitt-lung} % gibt Trennung für bestimmte Wörter vor
+%\sloppy % ermöglicht größeren Wortabstand, dadurch weniger Trennung
+\pagestyle{empty} % keine kopf oder fussleiste
+\bibliographystyle{dinat}
+% define citation aliases for Internet links that in most cases lack an author
+\defcitealias{bsp:weblinkzitat}{Titel der Beispiel Webseite}
+% Textformatierung
+\textwidth16cm
+\textheight22cm
+\topmargin0cm
+\oddsidemargin0cm
+\evensidemargin0cm
+\emergencystretch 3em% % allows latex to strech lines to avoid overfull boxes 
+
+%%% BEGINN
+% des Dokuments %%%
+\begin{document} 
+
+%%% TITELSEITE 1 und 2 %%%
+\input{misc/titlepage1}
+\newpage
+\input{misc/emptypage}
+\input{misc/titlepage1_en}
+\newpage
+\input{misc/emptypage}
+\input{misc/titlepage2}
+\newpage	
+\input{misc/emptypage}
+
+%%% ABSTRACT GERMAN %%%	
+\input{misc/abstractd}
+%%% ABSTRACT ENGLISH %%%
+\input{misc/abstracte}
+\newpage % spring auf die nächste Seite
+\input{misc/danksagung}
+
+%%% INHALTSVERZEICHNIS %%%
+\tableofcontents % Dieser Befehl erstellt den table of contents, das Inhaltsverzeichnis
+\newpage
+
+%%% EINSTELLUNGEN 
+% für den gesamten Content %%%
+\setcounter{tocdepth}{3} % gibt an bis in welche Tiefe Überschriften in der table of contents erscheinen
+\setcounter{secnumdepth}{3} % gibt an bis in welche Tiefe Überschriften nummeriert werden
+\setlength{\mathindent}{0pt}
+\setcounter{page}{1} % Pagecounter beginnt hier bei 1
+\pagestyle{headings} % erzeugt eine Kopfzeile aus seitennummer und überschrift des aktuellen Abschnitts
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+
+%%% ALLE KAPITEL
+% In diesem Abschnitt wirst du deine eigentliche Arbeit schreiben. Jedes Kapitel wird als ein eigenes File angelegt und eingebunden, damit es übersichtlich bleibt. Die chapters liegen im Ordner "chapters". %%%
+\begin{spacing}{1.2}
+	%\input{chapters/examples}
+	\input{chapters/01_einleitung}
+	\input{chapters/02_ziel}
+	\input{misc/emptypage}
+	\input{chapters/03_grundlagen}
+	\input{chapters/04_osmocom}
+	\input{misc/emptypage}
+	\input{chapters/05_umsetzung_theoretisch}
+	\input{misc/emptypage}
+	\input{chapters/06_umsetzung_praktisch}
+	\input{chapters/07_ergebnis}
+	\input{chapters/08_related_work}
+	\input{misc/emptypage}
+	\input{chapters/09_fazit_ausblick}
+\end{spacing}
+\newpage
+
+%%% LEERE SEITE %%%
+\input{misc/emptypage}
+
+%%% VERZEICHNISSE %%%
+\pagenumbering{Roman}
+\begin{appendix}
+
+%%% APPENDIX
+% Listen, Auswertungen, Tabellen, etc. %%%
+\input{chapters/A1_mobile_evolution}
+\input{chapters/A2_grundlagen}
+\input{chapters/A4_umsetzung}
+\input{chapters/A3_gsm_message_sequence_charts}
+
+%%% ABKÜRZUNGSVERZEICHNIS %%%
+\input{misc/acronym}
+%%% ABBILDUNGSVERZEICHNIS %%%
+\listoffigures 
+\listoftables
+\renewcommand{\lstlistlistingname}{Verzeichnis für Code und Textbeispiele}
+\lstlistoflistings
+
+%%% LITERATURVERZEICHNIS
+% erstellt aus den bib Dateien das Literaturverzeichnis. %%%
+\input{misc/bibliography}
+
+\end{appendix}
+\newpage
+
+%%% ERKLÄRUNG %%%
+\input{misc/declaration}
+
+%% temporary stuff
+%\input{chapters/notizen}
+%\listoftodos[TODOS]
+
+\end{document}       

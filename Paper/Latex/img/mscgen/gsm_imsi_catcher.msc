@@ -1,0 +1,74 @@
+hscale=auto;
+numbering=no;
+defcolor lightblue="172,172,221";
+defcolor lightgreen="172,221,172";
+defcolor lightred="221,172,172";
+defcolor lightgrey="247,247,247";
+defcolor lightgray="247,247,247";
+defcolor darkgray="64,64,64";
+
+defstyle entity, blockarrow, emptybox, note
+	[shadow.offset=5, shadow.blur=3, shadow.color=darkgray];
+defstyle entity, blockarrow, emptybox, note, box
+	[fill.color=lightgrey, line.color=darkgray];
+defstyle arrow
+	[line.color=darkgray, arrow.color=darkgray, text.color=black];
+defstyle box, emptybox, note
+	[text.color=darkgray];
+defstyle box, emptybox
+	[text.format="\i\-"];
+defstyle box
+	[number="yes"];
+defstyle note
+	[text.format="\i"];
+defstyle entity
+	[fill.color=lightblue, text.format="\b"];
+
+MS [label="MS"];
+MitM [label="MitM"];
+BTS [label="BTS"];
+
+..: Aufbau der RR-Verbindung. {
+	MS->MitM->BTS: \-\i\[RACH\] \[RR\]\i\+ CHANNEL-REQ;	
+	 
+	MS<-MitM<-BTS: \-\i\[AGCH\] \[RR\]\i\+ IMMEDIATE-ASSIGNMENT;
+
+	MS->MitM->BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ SABM(CM-SERVICE-REQ oder LOC-UPDATE-REQ); 
+
+	note: Der Request enthält die unbekannte TMSI.;
+	 
+	MS<-MitM<-BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ UA(CM-SERVICE-REQ);
+};
+
+..: Abfangen und Manipulieren einer beliebigen 
+	LAPDm I-Nachricht vom Netzwerk. {
+	[layout=overlap] {
+		MitM<-BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ I(N(R)=0, N(S)=0)(RANDOM-REQ);
+		note: Abgefangene Nachricht vom LAPDm Typ I.;
+	} {
+		defstyle arrow [color=++red,150];
+		MS<-MitM: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ I(N(R)=0, N(S)=0)(IDENTITY-REQ);
+		note: Nachricht manipuliert zu Identity Request.;
+	};
+
+	MS->MitM->BTS lost at MitM++: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N(R)=1);
+
+	MS->MitM->BTS lost at MitM++: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ I(N(R)=1, N(S)=0)(IDENTITY-RESPONSE(IMSI));
+
+	note: Die in der Antwort enthaltene IMSI wird mit der 
+		TMSI aus dem CM-SERVICE-REQ abgespeichert.;
+
+	MS<-MitM: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N(R)=1);
+};
+
+..: Beenden der RR-Verbindung mit dem MS. {
+	MS<-MitM: \-\i\[SDCCH\] \[LAPDM\] \[RR\]\i\+ I(N(R)=1, N(S)=1)(CHANNEL-RELEASE);
+	
+	MS->MitM->BTS lost at MitM++: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N(R)=2);
+
+	MS->MitM->BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ U(DISC);
+};
+
+[]:;
+
+

@@ -1,0 +1,932 @@
+%% Modified for NDSS 2016 on 2015/10/06
+%%
+%% bare_conf.tex
+%% V1.3
+%% 2007/01/11
+%% by Michael Shell
+%% See:
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.7 or later) with an IEEE conference paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%
+%% File list of work: IEEEtran.cls, IEEEtran_HOWTO.pdf, bare_adv.tex,
+%%                    bare_conf.tex, bare_jrnl.tex, bare_jrnl_compsoc.tex
+%%*************************************************************************
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. IEEE's font choices can trigger bugs that do  ***
+% *** not appear when using other class files.                            ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
+% Note that the a4paper option is mainly intended so that authors in
+% countries using A4 can easily print to A4 and see how their papers will
+% look in print - the typesetting of the document will not typically be
+% affected with changes in paper size (but the bottom and side margins will).
+% Use the testflow package mentioned above to verify correct handling of
+% both paper sizes by the user's LaTeX system.
+%
+% Also note that the "draftcls" or "draftclsnofoot", not "draft", option
+% should be used if it is desired that the figures are to be displayed in
+% draft mode.
+%
+\documentclass[conference]{IEEEtran}
+% Add the compsoc option for Computer Society conferences.
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[conference]{../sty/IEEEtran}
+
+\pagestyle{plain}
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/oberdiek/
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 4.0 (2003-05-27) and later if using hyperref.sty. cite.sty does
+% not currently provide for hyperlinked citations.
+% The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  \graphicspath{{./img/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at: 
+% http://www.ctan.org/tex-archive/macros/latex/required/graphics/
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found as epslatex.ps or
+% epslatex.pdf at: http://www.ctan.org/tex-archive/info/
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+\usepackage[cmex10]{amsmath}
+\usepackage{amssymb}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics. If using
+% it, be sure to load this package with the cmex10 option to ensure that
+% only type 1 fonts will utilized at all point sizes. Without this option,
+% it is possible that some math symbols, particularly those within
+% footnotes, will be rendered in bitmap form which will result in a
+% document that can not be IEEE Xplore compliant!
+%
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
+% There is also a support site at:
+% http://algorithms.berlios.de/index.html
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+\usepackage{mdwmath}
+\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/mdwtools/
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
+
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\usepackage[tight,footnotesize]{subfigure}
+% subfigure.sty was written by Steven Douglas Cochran. This package makes it
+% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
+% work, it is a good idea to load it with the tight package option to reduce
+% the amount of white space around the subfigures. subfigure.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
+% subfigure.sty has been superceeded by subfig.sty.
+
+
+
+%\usepackage[caption=false]{caption}
+%\usepackage[font=footnotesize]{subfig}
+% subfig.sty, also written by Steven Douglas Cochran, is the modern
+% replacement for subfigure.sty. However, subfig.sty requires and
+% automatically loads Axel Sommerfeldt's caption.sty which will override
+% IEEEtran.cls handling of captions and this will result in nonIEEE style
+% figure/table captions. To prevent this problem, be sure and preload
+% caption.sty with its "caption=false" package option. This is will preserve
+% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
+% (recommended due to many improvements over 1.2) of subfig.sty supports
+% the caption=false option directly:
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
+% The latest version and documentation of caption.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/caption/
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
+% Documentation is contained in the stfloats.sty comments as well as in the
+% presfull.pdf file. Do not use the stfloats baselinefloat ability as IEEE
+% does not allow \baselineskip to stretch. Authors submitting work to the
+% IEEE should note that IEEE rarely uses double column equations and
+% that authors should try to avoid such use. Do not be tempted to use the
+% cuted.sty or midfloat.sty packages (also by Sigitas Tolusis) as IEEE does
+% not format its papers in such ways.
+
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/misc/
+% Read the url.sty source comments for usage information. Basically,
+% \url{my_url_here}.
+
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% custom micellangeous packages
+\usepackage[nolist]{acronym} % acronyms dont generate a list
+\input{acronym}
+
+\usepackage{xargs} % commands with multiple arguments
+% Put somethin above a sign in math mode
+\newcommandx{\aoverb}[2]{\mathrel{\stackrel{\makebox[0pt]{\mbox{\normalfont\tiny \textbf{#1}}}}{#2}}}
+%\delimitershortfall=-1pt
+\let\Right\right
+\let\Left\left
+\makeatletter
+\def\right#1{\Right#1\@ifnextchar){\!\right}{}}
+\def\left#1{\Left#1\@ifnextchar({\!\left}{}}
+\makeatother
+
+%\usepackage[utf8]{inputenc}
+
+\usepackage[colorinlistoftodos,prependcaption]{todonotes} % TODO features
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\begin{document}
+
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{An encryption independent Man-In-The-Middle Attack in GSM}
+
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{\IEEEauthorblockN{Sebastian Stumpf}
+\IEEEauthorblockA{Munich University of Applied Sciences\\
+sstumpf@hm.edu}
+\and
+\IEEEauthorblockN{Alf Zugenmaier}
+\IEEEauthorblockA{Munich University of Applied Sciences\\
+alf.zugenmaier@hm.edu}}
+
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+% 
+%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+%Homer Simpson\IEEEauthorrefmark{2},
+%James Kirk\IEEEauthorrefmark{3}, 
+%Montgomery Scott\IEEEauthorrefmark{3} and
+%Eldon Tyrell\IEEEauthorrefmark{4}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+\IEEEoverridecommandlockouts
+\makeatletter\def\@IEEEpubidpullup{9\baselineskip}\makeatother
+\IEEEpubid{\parbox{\columnwidth}{Permission to freely reproduce all or part
+    of this paper for noncommercial purposes is granted provided that
+    copies bear this notice and the full citation on the first
+    page. Reproduction for commercial purposes is strictly prohibited
+    without the prior written consent of the Internet Society, the
+    first-named author (for reproduction of an entire paper only), and
+    the author's employer if the paper was prepared within the scope
+    of employment.  \\
+    NDSS '16, 21-24 February 2016, San Diego, CA, USA\\
+    Copyright 2016 Internet Society, ISBN 1-891562-41-X\\
+    http://dx.doi.org/10.14722/ndss.2016.23xxx
+}
+\hspace{\columnsep}\makebox[\columnwidth]{}}
+
+
+% make the title area
+\maketitle
+
+
+
+\begin{abstract}
+%\boldmath
+In this paper, the result of the development of a new \ac{MitM} attack on a voice connection in the \ac{GSM} network is presented. \ac{GSM} has still an important role in current modern networks, but lacks crucial security features. Our attack exploits the lack of integrity protection on the radio interface to manipulate a victim's outgoing call. The call can thus be redirected to a mobile phone designated by the attacker. This paper explains the attack and the security flaws it is based on and establishes relations to current attacks. Furthermore, our practival work is presented, which includes the virtualisation of the air interface in the Osmocom framework and the validation of the attack on that virtual Um Ininterface.\\
+The encryption methods used in \ac{GSM} are stream ciphers. This means the data stream is secured by combining it with a key stream using the exclusive-or (\acs{XOR}) operation. It is shown that a cipher stream generated by a stream cipher can be arbitrarily manipulated if the plaintext is known. Since \ac{GSM} does not specify a procedure for integrity protection, the called phone number in the outgoing call can be replaced by the attacker. The attacker can redirect the call to a mobile entity under control and thus receives the voice traffic from the calling victim. By linking this voice traffic with a new call to the original called number, the attacker creates a \ac{MitM} in between the two communication partners. Because incoming and outgoing calls are valid \ac{GSM} calls, the network and mobile devices take care of the encryption and encoding of the voice data by themselves. This means the attacker has access to the unencrypted communication and can record or manipulate the call as they wish. Since the encryption does not have to be broken, the attack is working even with strong encryption algorithms. Furthermore, the use of the more recent 3G \ac{AKA} instead of the outdated 2G \ac{AKA} provides no protection from the attack. It brings mutual authentication to \ac{GSM} networks, but does not ensure integrity between \ac{MS} and \ac{BTS}. The attack requires partial known plaintext of the called mobile number, which can be assumed in \ac{GSM}. Mobile phone numbers usually have known parts, like the \ac{NDC} or the \ac{CC}. The installation of a \ac{MitM} on the physical level of the real radio frequency interface is not investigated in our work.
+\end{abstract}
+% IEEEtran.cls defaults to using nonbold math in the Abstract.
+% This preserves the distinction between vectors and scalars. However,
+% if the conference you are submitting to favors bold math in the abstract,
+% then you can use LaTeX's standard command \boldmath at the very start
+% of the abstract to achieve this. Many IEEE journals/conferences frown on
+% math in the abstract anyway.
+
+% no keywords
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+%%\IEEEpeerreviewmaketitle
+
+
+
+\section{Introduction}
+% no \IEEEPARstart
+Seit der Einführung von \ac{GSM} 1992 hat sich der Mobilfunk stetig weiterentwickelt. So wurden neue, schnellere und sicherere Standards für Mobilfunknetzwerke spezifiziert und ausgerollt. Weil das \ac{GSM}-Netz aber wegen seiner bestehenden und weit verbreiteten Infrastruktur flächendeckenden Empfang liefert und kostengünstig ist, wird es in den meisten Regionen trotz Ausbau der 3G und 4G Netze weiterhin unterstützt und verwendet \cite{opensignal}. In Japan, Korea und Singapur ist die Abschaltung des 2G Netzes bereits erfolgt und in Australien bis September 2017 geplant. Das Ziel dabei ist vor allem die Wiederverwendung der begehrten, aber von \ac{GSM} belegten Frequenzen im 900 MHz Band. In Europa wird laut \cite{heise:newsticker-3582914} aktuell die Unterstützung und Instandhaltung der Infrastruktur von \ac{GSM} bis etwa 2020 vorausgesagt - viele Netzanbieter halten sich diesbezüglich bedeckt. Da vor allem im \ac{IoT} Bereich und für die \ac{M2M} Kommunikation viele \ac{GSM}-Module verwendet werden, die die neueren Standards nicht unterstützen, hält man sich in einigen Ländern wie Deutschland mit konkreten Angaben ganz zurück. Der Lebenszyklus dieser meist im Embedded-Bereich verwendeten Geräte ist in der Regel hoch und ohne \ac{GSM} müssten sie ersetzt werden, was hohe Kosten verursachen würde. Auch 2017 wird noch in den Ausbau von \ac{GSM}-Netzwerken investiert. In Mexiko wird zum Beispiel für schwer erreichbare Regionen von Non-Profit-Organisationen der \ac{GSM} Netzausbau auf Basis von Open-Source-Software des Osmocom Projektes vorangetrieben \cite{osmocom:news-rhizomatica}. Es wird derzeit angenommen, dass das 3G Netz als Übergangstechnologie vom sprachbasierten \ac{GSM} zum datenbasierten \ac{LTE} früher abgeschaltet wird als \ac{GSM}. Die \ac{GSM}-Infrastruktur wird, wenn man von der derzeitigen Entwicklung ausgeht, also noch lange erhalten bleiben \cite{Ericsson:2016:Uen:284-23-3278}, \cite{heise:newsticker-3582914}, \cite{mobileworldlive:long-life-2g}.
+
+Was die Sicherheit angeht, so wird \ac{GSM} ohne größere Veränderungen auf dem gleichen Stand der Technik wie vor 30 Jahren betrieben. Trotz einiger Versuche die Sicherheit zu verbessern, wie die Einführung der gegenseitigen Authentifizierung oder die Spezifikation von neuen Verschlüsselungsalgorithmen wie A5/4, bleibt \ac{GSM} verwundbar und anfällig für eine Vielzahl von Angriffen. Gründe dafür sind Schwachstellen in den Anpassungen der Sicherheitsmechanismen und die verzögerte Einführung dieser von den Netzanbietern. Das auch für \ac{GSM} spezifizierte \ac{UMTS}-\ac{AKA} gewährleistet in \ac{GSM} zum Beispiel gegenseitige Authentifizierung, aber keinen Integritätsschutz, eine Schwachstelle in der Spezifikation. Der in dieser Arbeit vorgestellte \ac{MitM}-Angriff nutzt diese Schwachstelle, sowie in \ac{GSM} unverschlüsselt preisgegebene Informationen, um in den Anrufaufbau einzugreifen und ein Telefonat zu einem Angreifer umzuleiten. Der Eingriff liegt in der Manipulation der angerufenen Telefonnummer in der verschlüsselten, für den Anrufaufbau zuständigen Signalisierungsnachricht. Der Angriff verdeutlicht die Notwendigkeit, Möglichkeiten für den Schutz der Integrität für den \ac{GSM}-Standard zu spezifizieren und in den \ac{GSM}-Netzwerken einzuführen. Verschlüsselung ohne Integritätsschutz stellt eine gravierende Schwachstelle dar. Vor allem im Hinblick auf die voraussichtlich noch lange Laufzeit von \ac{GSM}, muss diese dringend behoben werden.
+
+\subsection{Related work and attacks} \label{hdl:einleitung_stand-der-technik}
+
+There are several \textbf{passive attacks} on \ac{GSM}, mostly caused by vulnerabilities of the protocols and specification, which are summarized in the following part. Through passive atttacks, an attacker can sniff private data, but not manipulate it. 
+
+Die erste Kryptoanalyse des A5/1 Algorithmus wurde drei Jahre, nachdem sein Design bekannt wurde, veröffentlicht. \cite{golic1997cryptanalysis} legte darin mehrere Schwachstellen offen und stellte die Idee eines Time-Memory-Trade-Off Angriffs vor, der auf dem Geburtstagsparadoxon beruht. \cite{Biryukov2001} analysierten den Angriff mit dem Ergebnis, dass er nicht praktikabel war. Er hätte für die Durchführung 15 TB vorberechnete Daten und mehrere Stunden bekannter Gesprächsdaten benötigt. \cite{Biryukov2001} entwickelten den Angriff in ihrer Arbeit weiter, indem sie mehrere weitere Schwachstellen des A5/1 Algorithmus ausnutzten. Ihr vorgestellter Angriff braucht bis zu 290 GB vorberechneter Daten und hat eine Ausführungszeit von etwa einer Sekunde. Der Nachteil liegt in der mit bis zu zwei Minuten relativ langen Sequenz von Gesprächsdaten, die bekannt sein müssen. Eine weitere Verbesserung des Angriffs auf A5/1 entwickelten \cite{barkan2003instant}. Der Angriff nutzt durch Fehlerkorrekturmechanismen generierte, bekannte Redundanz auf dem \ac{TCH} aus und kommt deshalb ohne die Voraussetzung von bekannten Gesprächsdaten aus. Die Dauer des Angriffs wurde außerdem auf unter eine Sekunde reduziert und kommt damit Echtzeitentschlüsselung nahe. Der Nachteil ist die mit mehreren Terabyte große Menge an Daten, die für den Angriff vorberechnet werden müssen. Für die Zeit der Veröffentlichung wäre mit der Berechnung der Daten für die Entschlüsselung eines 5 Minuten Gesprächs ein handelsüblicher Computer mehrere Jahre beschäftigt gewesen, was die praktische Anwendung unrealistisch machte. Auf einer Blackhat Präsentation erwähnte  \cite{hulton2008intercepting} die Arbeit an der Berechnung von Rainbow-Tables für einen Time-Memory-Trade-Off Echtzeitangriff auf A5/1. \cite{nohl2009gsm} stellte auf der 26C3 den ersten praktisch durchführbaren Angriff auf A5/1 vor. Er schätzte, dass die Berechnungsdauer der Rainbow-Tables von 100.000 Jahren auf einem Prozessor, durch parallele Programmierung mit CUDA\footnote{\url{http://www.nvidia.de/object/cuda-parallel-computing-de.html}} und Ausführung auf 80 \acp{GPU}, auf 3 Monate reduziert werden kann. Auf der 27C3 führte er den Angriff mit Munaut praktisch durch \cite{nohl2010wideband}. Die Größe der für den Angriff verwendeten Rainbow-Tables konnte auf 2 TB und deren Berechnungsdauer auf einen Monat mit vier \acp{GPU} reduziert werden. Im Anschluss an den Vortrag wurden die Tables veröffentlicht\footnote{\url{https://opensource.srlabs.de/projects/a51-decrypt}}. Die Erfolgsrate des Angriffs wird von Nohl auf 99\% geschätzt, sofern die Registrierung des Nutzers am Netzwerk mit aufgenommen werden kann, da die bekannten Signalisierungsnachrichten dann maximal sind. Andernfalls sinkt die Erfolgschance auf 50\%. Mit dem von Nohl vorgestellten Angriff und den veröffentlichten Rainbow-Tables ist es möglich, einen belauschten und A5/1 geschützten Anruf zu entschlüsseln. Für das Abhören des Telefonats nutzten Nohl und Munaut in ihrer Präsentation zwei Motorola C123 Mobiltelefone (2017 ca. 30 Euro) mit angepasster Firmware aus osmocomBB. Um die Nachrichten auf der Funkschnittstelle zu belauschen, kann auch ein \ac{USRP} (Ettus Research ca. 1500 Euro) oder ein \ac{SDR} wie HackRF (ca. 300 Euro) und freie Software\footnote{\url{http://cgit.osmocom.org/gr-osmosdr/}} genutzt werden.
+
+A5/2 wurde mit der Einführung von \ac{GSM} für Exportregionen entwickelt und bietet signifikant geringeren Schutz als der zu dieser Zeit als sicher geltende A5/1. Seine kryptografische Schwäche beruht auf einer geringeren verwendeten Schlüssellänge als in A5/1. \cite{goldberg1999real} veröffentlichten einen Angriff, mit dem das Verschlüsselungsverfahren in Echtzeit gebrochen werden kann. A5/2 wurde einige Jahre, nachdem ein praktischer Angriff von \cite{barkan2003instant} veröffentlicht wurde, von \ac{3GPP} offiziell aus der Liste der unterstützten Algorithmen genommen \cite{osmocom:withdrawal-a52}.
+
+\cite{dunkelman2010practical} publizierten einen praktischen Angriff auf den KASUMI Algorithmus, der in A5/3 für die Generierung des Schlüsselstroms verwendet wird. Wegen der Art der Verwendung von KASUMI ist der veröffentlichte Sandwich-Angriff aber nicht auf A5/3 anwendbar. KASUMI arbeitet mit einem 128 Bit Schlüssel, da der kryptografische Schlüssel in \ac{GSM} nur 64 Bit hat, geht dieser also konkateniert ($\ac{Kc} \parallel \ac{Kc}$) in KASUMI ein. Durch die resultierende Entropie des Schlüssels von nur 64 Bit ist A5/3 generell anfällig für Bruteforce Angriffe. \cite{nohl2014mobile} bezeichnete A5/3 auf der 31C3 als "`NSA verwundbar"'. Wegen seiner geringen Schlüssellänge kann der Algorithmus Angreifern mit entsprechenden finanziellen Mitteln nicht widerstehen. Laut \cite{theintercept:nsa-auroragold} arbeitet die \ac{NSA} daran, den A5/3 Algorithmus zu brechen. Auch wenn noch kein praktischer Angriff auf A5/3 veröffentlicht wurde, sollte man sich auf längere Sicht nicht auf dessen Sicherheit verlassen.
+\begin{sloppypar}
+Um das Problem der geringen Schlüssellänge zu beheben, wurde A5/4 spezifiziert \cite{3gpp:55.226}. Dieser nimmt volle 128 Bit für den in KASUMI verwendeten Schlüssel entgegen. Sofern eine 3G \ac{USIM}-Karte verwendet wird, die einen Schlüssel mit dieser Entropie bereitstellt, ist A5/4 nicht anfällig für Bruteforce Angriffe. 2G \ac{SIM}-Karte Karten werden von Netzanbietern nicht mehr vertrieben und praktisch nicht mehr verwendet, allerdings gibt es in Deutschland auch noch keinen Mobilfunkanbieter, dessen \ac{GSM}-Netz A5/4 unterstützt \cite{gsmmap:secrep-ger}.
+\end{sloppypar}
+Neben den Schwachstellen der Algorithmen gibt es in \ac{GSM} das Problem, dass Mobiltelefone auch unverschlüsselte Verbindungen akzeptieren, wenn das Netzwerk keine Verschlüsselung bereitstellt. Für passive Angriffe ist die Schwachstelle nicht relevant, da \ac{BTS} von Netzanbietern Verschlüsselung verlangen, für aktive Angriffe ist sie aber von Bedeutung. 
+
+Neben der Verschlüsselung stellt auch Frequency Hopping ein Problem beim Aufzeichnen, Abhören und Manipulieren von Datenverbindungen dar. Der Angreifer muss die verwendete Sprungsequenz der Frequenz kennen und ihr folgen, um den Datenverkehr aufzeichnen zu können. \cite{nohl2010wideband} bemängelten, dass Frequency Hopping in den meisten Fällen nicht genutzt wird. In seiner Präsentation setzte Nohl den Punkt auf seine Wunschliste an die Netzanbieter. Aus Untersuchungen geht hervor, dass in Deutschland zum Stand 2016 Frequency Hopping zwar in der Regel genutzt wird, die verwendeten Sprungsequenzen aber oft vorhersehbar sind. Auch weitere angemerkte Sicherheitsverbesserungen, wie zufälliges Padding, häufiger Wechsel der \ac{TMSI} und das Aushandeln eines neuen kryptografischen Schlüssels für jeden genutzten Dienst, sind in Deutschland bis 2016 kaum umgesetzt worden \cite{gsmmap:secrep-ger}.
+
+Design errors in the authenitcation and security procedures also allow multiple \textbf{active attacks}, where the attacke could not only sniff but also manipulate data. The early \ac{GSM}-standard only allowed unilateral authentication, the mobile could not check the authentity of the network it was connected to. Thus an attacker could establish fake or rogue bts. Diese falschen \ac{BTS} wurden erstmals in \cite{gobel1996strafprozess}, als \ac{IMSI}-Catcher erwähnt. Das ursprünglich von Rohde{\&}Schwarz\footnote{\url{https://www.rohde-schwarz.com}} entwickelte Gerät "`GA 090"' wurde von Behörden eingesetzt, um die \acp{IMSI} der Netzteilnehmer in Reichweite zu sammeln, wodurch deren Identität und Standort ermittelt werden konnte. Das Sammeln der Identitäten ist durch eine weitere Schwachstelle im \ac{GSM}-Protokoll möglich. In der Regel wird die \ac{IMSI} der Teilnehmer auf dem \ac{Um} verschleiert und durch eine \ac{TMSI} ersetzt. Die \ac{IMSI} kann aber jederzeit vom Netzwerk angefordert werden, falls dieses die Zuordnung von \ac{IMSI} zur \ac{TMSI} verliert. Da das Netzwerk die Identität und damit den kryptografischen Schlüssel des Teilnehmers nicht kennt, ist der "`Identity Request"', mit dem die \ac{IMSI} abgefragt wird, unverschlüsselt. In \ac{GSM} ist außerdem spezifiziert, dass eine \ac{MS} während einer \ac{RR}-Verbindung einen Identity Request des Netzwerks jederzeit beantworten muss \cite[Kap. 4.3.3.2]{3gpp:24.008}. Ein solcher Identity Request kann vom Angreifer direkt beim von der \ac{MS} initiierten \ac{RR}-Verbindungsaufbau geschickt werden, um an die \ac{IMSI} zu kommen. Durch geringe Modifikationen an der Betriebssoftware des Geräts, konnte der \ac{IMSI}-Catcher auch Nachrichten zwischen den \ac{MS} und der echten \ac{BTS} des Netzanbieters abhören und weiterleiten \cite{fox2002imsi}.
+
+Für ihren vorgeschlagenen \ac{MitM}-Angriff zum Abhören eines verschlüsselten Telefonats setzten \cite{barkan2003instant} eine falsche \ac{BTS} mit Zugriff auf den Nachrichtenverkehr zwischen \ac{MS} und Netzwerk voraus. Der Angreifer ist über diese auf der einen Seite mit dem Netzwerk und auf der anderen mit dem Opfer verbunden. Um die falsche \ac{BTS} als das Opfer beim Netzwerk authentifizieren zu können, wird die Authentifizierungsanfrage des Netzwerks an die \ac{MS} des Opfers weitergeleitet, die \ac{SRES} berechnet und dem Angreifer zurückschickt. Mit \ac{SRES} kann die falsche \ac{BTS} sich nun ihrerseits beim Netzwerk authentifizieren und sich ihm gegenüber als Opfer ausgeben. Der Angreifer kann die Verschlüsselung zwischen falscher \ac{BTS} und \ac{MS} selbst festlegen, unabhängig von der Verschlüsselung, die ihm vom Netzwerk vorgegeben wird. Wählt er einen schwachen Algorithmus wie A5/2, so kann er dessen Schwachstellen ausnutzen, um den von der \ac{MS} des Opfers generierten kryptografischen Schlüssel \ac{Kc} zu gewinnen und damit die Daten des Opfers entschlüsseln. Da der selbe kryptografische Schlüssel \ac{Kc} für alle \ac{A5} Algorithmen verwendet wird, können die Daten des Opfers für das Netzwerk mit jeder beliebigen, geforderten Verschlüsselung verschlüsselt werden.
+
+\cite{nohl2009gsm} zeigten auf der 26C3, dass es mit günstiger Hardware und freier Software möglich ist, einen \ac{IMSI}-Catcher umzusetzen. Die praktische Umsetzung des Angriffs führte \cite{paget2010practical} ein Jahr später auf der DefCon vor. Er verwendete einen \ac{USRP}, der über seinen Laptop mit OpenBTS verbunden war, als \ac{BTS} und Asterisk, sowie Wireshark zum Aufzeichnen und Dekodieren des Datenverkehrs. Er brachte Mobiltelefone dazu, sich mit A5/0, also ohne Verschlüsselung, mit der falschen \ac{BTS} zu verbinden. Des Weiteren führte er vor, dass durch Stören der \ac{UMTS}-Frequenzen, \acp{MS} trotz Anwesenheit eines 3G Netzes dazu gezwungen werden können, sich auf den \ac{GSM}-Frequenzen mit der falschen \ac{BTS} zu verbinden. Auch den \ac{MitM}-Angriff von \cite{barkan2003instant} konnte er mit seiner falschen \ac{BTS} praktisch vorführen und die schwachen Algorithmen A5/1 und A5/2 für die Verschlüsselung aushandeln.
+
+Mit dem \ac{UMTS}-Standard wurde ein gegenseitiges Authentifizierungsverfahren eingeführt, um \ac{MitM}-Angriffe zu verhindern. Der Datenverkehr auf der \ac{Um}-Schnittstelle wird in \ac{UMTS} mit einem Integritätsschlüssel \ac{IK} geschützt und das Netzwerk authentifiziert sich mit \ac{AUTN} beim Mobiltelefon. \cite{meyer2004man} stellten jedoch Szenarien vor, in denen ein \ac{MitM}-Angriff trotz der \ac{UMTS}-Sicherheitsmechanismen möglich ist. Die Voraussetzung dafür ist, dass das Telefon des Opfers zusätzlich zu \ac{UMTS} das \ac{GSM}-Netzwerk unterstützt und eine \ac{GSM}-\ac{BTS} in Reichweite ist. Der parallele Betrieb von \ac{GSM} und \ac{UMTS}-Infrastruktur ist auch 2017 noch meistens der Fall. Der Angriff macht sich zu Nutze, dass in \ac{GSM}-Netzwerken auch bei Verwendung des \ac{UMTS}-\ac{AKA} kein Integritätsschutz unterstützt wird. Der Angreifer kann so an die Authentifizierungsparameter \ac{RAND} und \ac{AUTN} des Netzwerks gelangen und sich der \ac{MS} gegenüber als dieses ausgeben. Wie in den vorherigen Fällen kann dann eine schwache Verschlüsselung gefordert und ein \ac{MitM}-Angriff ausgeführt werden.
+
+Neben der Identifikation von Opfern und Angriffen die darauf abzielen verschlüsselte Kommunikation mit dem Netzwerk abzuhören, gibt es eine Reihe von weiteren Anwendungsfällen für eine \ac{MitM}-\ac{BTS} auf der Funkschnittstelle. So kann durch binäre \ac{SMS} mit \ac{OTA} Befehlen Schadcode auf der \ac{JVM} von \ac{USIM}-Karten ausgeführt werden. Dieser kann geheime Daten von Bankanwendungen oder den geheimen Schlüssel des Opfers auslesen und dem Angreifer über \ac{SMS} zuschicken \cite{nohl2013rooting}. Mit speziellen Nachrichten kann ein Angreifer außerdem auf die Kontrollschnittstelle für die Fernwartung von Mobiltelefonen zugreifen. Damit ist es zum Beispiel möglich, einen neuen \ac{APN} oder \ac{HTTP}-Proxy einzustellen und so einen permanenten \ac{MitM} einzurichten \cite{solnik2014cellular}.
+
+Die Notwendigkeit von Integritätsschutz für verschlüsselte Daten ist bekannt. Daraus resultierende Sicherheitsprobleme wurden zum Beispiel von \cite{yu2004perils} für den Authentifizierungsdienst Kerberos behandelt. \cite{paterson2006cryptography} wiesen auf die selben Probleme in der \ac{IPSec}-Implementierung im Linux Kernel hin, woraufhin \cite{degabriele2007attacking} eine Reihe implementierungsunabhängiger Angriffe auf die \ac{IPSec}-Spezifikation entwickelten. Von besonderem Interesse für diese Masterarbeit ist der von \cite{bittau2006final} publizierte Fragmentierungsangriff auf die Stromverschlüsselung von \ac{ESP}-Paketen in \ac{WEP}. Der 802.11 Standard spezifiziert, dass ein großes Paket auch fragmentiert mit mehreren kleinen Paketen übertragen werden kann. Bittau und Handley konnten durch den bekannten Klartext des Protokollheaders 8 Byte des Schlüsselstroms extrahieren. Da der 802.11 Standard die Wiederverwendung des Schlüsselstroms für bis zu 16 aufeinanderfolgende Pakete erlaubt, konnten in Kombination mit der Fragmentierung bis zu 64 Byte an Daten eingeschleust werden. Die 8 Byte Fragmente wurden alle mit dem bekannten Teil des Schlüsselstroms verschlüsselt. Das besondere am Angriff ist, dass er nicht darauf abzielt, den kryptografischen Schlüssel herauszufinden, der für die Generierung des Schlüsselstroms verwendet wird. Stattdessen nutzt er einen bekannten Teil des Schlüsselstroms und Schwachstellen des Protokolls aus, um den stromverschlüsselten Datenverkehr zu manipulieren. Der in dieser Arbeit vorgestellte Angriff fällt in die gleiche Kategorie.
+
+Statt einen \ac{MitM}-Angriff über eine falsche \ac{BTS} auf der Funkschnittstelle durchzuführen, kann ein Angreifer das Netzwerk auch direkt angreifen. So zeigten \cite{golde2012weaponizing}, dass ein Angreifer sich Zugang zu einer Femtozelle verschaffen und diese so manipulieren kann, dass sie für oben erwähnte \ac{MitM}-Angriffe, wie Verkörperung eines Nutzers und Abhören und Modifizieren des Datenverkehrs, genutzt werden kann. Eine Femtozelle ist eine typischerweise in Privat- oder Firmenumgebungen installierte \ac{BTS} mit geringer Reichweite, die über einen \ac{DSL} Anschluss direkt mit dem Netzwerk des Netzanbieters verbunden ist. Ein weiterer Ansatz ist der direkte Angriff auf das Kernnetzwerk des Netzanbieters. Die Sicherheit dieses \ac{SS7}-Netzwerks basiert auf dem gegenseitigen Vertrauen aller im Netzwerk agierenden Komponenten, der Datenverkehr wird nicht weiter geschützt. Ein 2014 erschienener Artikel der Washington Post\footnote{"`For sale: Systems that can secretly track where cellphone users go around the globe"' (Timberg,
+2014)} zeigte unter Referenz der Broschüre eines Überwachungsdienstleisters, dass das Szenario eines Angreifers mit Zugriff auf das \ac{SS7}-Netzwerk Realität ist. Daraufhin beschäftigten sich unter anderem \cite{nohl2014mobile} und \cite{Mourad:fall-of-ss7} mit den Konsequenzen für die Sicherheit des Mobilfunks und stellten eine Vielzahl von \ac{MitM}-Angriffen vor, die den Zugang zum \ac{SS7}-Netzwerk voraussetzen und nutzen.
+
+Eine weitere Schwachstelle in \ac{GSM} ist die Möglichkeit, einen kryptografischen Schlüssel für mehrere Dienste hintereinander benutzen zu können. Ein Angreifer kann so auf Kosten und mit der Identität eines Opfers, Netzwerkdienste in Anspruch nehmen \cite{gsmmap:secrep-ger}. Das Vorgeben einer falschen Identität ist ebenfalls durch sogenanntes "`Call Spoofing"' möglich, also das Fälschen der Rufnummer des Anrufers. Der Dienst wird von mehreren Webseiten\footnote{\url{https://www.spoofcard.com/}} und Smartphone Apps\footnote{\url{http://calleridfaker.com/}} angeboten und ist in Deutschland nach \ac{TKG} §66k Rufnummernübermittlung verboten. Dabei wird der Anruf in der Regel über \ac{VoIP} Dienste geleitet, bei denen die Telefonnummer des Anrufers konfigurierbar ist. Auch Asterisk kann für Call-Spoofing genutzt werden. Die Anwendung erlaubt es dem Angreifer, seine Telefonnummer beliebig zu ändern, bevor ein Anruf an einen \ac{VoIP}-Dienst weitergeleitet wird.
+
+\subsection{Comparison with the newly developed attack}
+
+In dieser Masterarbeit wurde der erste \ac{MitM}-Angriff für \ac{GSM} entwickelt, der ohne Kenntnis des kryptografischen Schlüssels funktioniert. Der Angriff nutzt, wie der von \cite{bittau2006final} publizierte Angriff auf \ac{WEP}, den fehlenden Integritätsschutz aus, um verschlüsselte und bekannte Daten zu manipulieren. In Kombination mit vorhersehbarem Nachrichtenverkehr kann in \ac{GSM} so die Nachricht für den Anrufaufbau identifiziert und eine bekannte, angerufene Rufnummer geändert werden. Der Angreifer kann den Anruf so an ein Mobiltelefon in seinem Besitz umleiten. Verknüpft der Angreifer den bei seinem Mobiltelefon eingehenden Anruf mit einem Anruf zur ersetzten Nummer, kann er das Gespräch abhören und manipulieren -- ein \ac{MitM}-Angriff mit Zugriff auf die unverschlüsselten, zwischen den Opfern kommunizierten Sprachdaten.
+
+Im Gegensatz zu den \ac{MitM}-Angriffen von \cite{barkan2003instant} und \cite{meyer2004man} beruht der vorgestellte Angriff nicht auf der Verwendung einer schwachen Verschlüsselung wie A5/1 oder A5/2. Da der Angriff keine Kenntnis des kryptografischen Schlüssels voraussetzt, funktioniert er mit allen spezifizierten Verschlüsselungen. Selbst wenn Netzwerk und \ac{MS} nur absolut sicher verschlüsselte Verbindungen zulassen (z.B. A5/4), kann der \ac{MitM}-Angriff durchgeführt werden. 
+
+Mit der Spezifikation von A5/4 hat \ac{3GPP} ein Verschlüsselungsverfahren ohne die in \ref{hdl:passive-attacks} gezeigen Schwächen spezifiziert. Der vorgestellte Angriff zeigt auf, dass alle Bemühungen, ein sicheres, auf Stromverschlüsselung basiertes  Verschlüsselungsverfahren für \ac{GSM} zu entwickeln, umsonst sind. Keine Stromverschlüsselung ist in der Lage, den fehlenden Integritätsschutz aufzuwiegen. Solange die Integrität einer Nachricht nicht durch einen sicheren Hashwert geschützt wird, kann ein Angreifer beliebige, ihm bekannte Daten ändern. Der Angriff nutzt diese Schwachstelle aus, um eine bekannte Telefonnummer im Anrufaufbau zu manipulieren. Es wäre jedoch genauso möglich, die oftmals bekannten Inhalte von Signalisierungs- oder anderer Nachrichten zu ändern. Angriffe, die auf solchen oder ähnlichen Manipulationen beruhen, müssen noch untersucht werden.
+
+Mit dem \ac{MitM}-Angriff ist es mit der Manipulation von einigen wenigen Bits in einer einzigen Nachricht möglich, alle Sicherheits- und Netzwerkmechanismen für den weiteren Verlauf des Gesprächs zu umgehen. Ist der Angriff einmal aufgebaut, kann der Angreifer sich auf viel höherer Ebene mit dem Abhören oder Eingreifen in die Kommunikation beschäftigen - auf Ebene der Audiodaten des Gesprächs. Das Netzwerk und die beteiligten \acp{MS} erledigen Verschlüsselung, Kodierung und Frequency-Hopping, sowie den Handover der beiden Opfer und des Angreifers. Selbst ein Handover zu echten Basisstationen, die nicht mehr unter Kontrolle des Angreifers sind, ist möglich, was bedeutet, dass sich Angreifer und Opfer während eines laufenden \ac{MitM}-Angriffs beliebig bewegen können. Die geringe technische Komplexität des \ac{MitM}-Angriffs macht ihn als Dienstleistung für Angreifer mit wenig technischem Knowhow interessant. Vorstellbar wäre ein Szenario, in dem Überwachungsdienstleister X anbietet, ausgehende Anrufe von Opfer A an die Nummer von Opfer B über Angreifer Y als \ac{MitM} zu leiten. Der Dienstleister übernimmt dabei den \ac{MitM}-Angriff auf dem \ac{Um} und somit die technisch anspruchsvollere Umleitung des Anrufs und verkauft Angreifer Y den \ac{MitM}-Angriff auf die Sprachverbindung. Angreifer Y kann im einfachsten Fall "`einfach zuhören"'.
+
+Für den \ac{MitM}-Angriff auf dem \ac{Um} ergibt sich eine neue Möglichkeit der Umsetzung, verglichen mit der herkömmlichen über eine falsche Basisstation. Wegen der geringen rechnerischen Komplexität der Manipulation der Setup-Nachricht im Vergleich zur Berechnung des kryptografischen Schlüssels könnte auf dem \ac{Um} ein rein auf physikalischer Ebene, in Echtzeit arbeitender \ac{MitM} zum Einsatz kommen. Das \ac{MitM}-Gerät würde in etwa einem \ac{GSM}-Repeater mit einer beim Empfang und Versand von Nachrichten vorgeschalteten Verarbeitungsroutine entsprechen, die die Bits im Datenstrom flippt. Hardware für \ac{GSM}-Repeater wird kostengünstig von verschiedenen Onlineshops angeboten \cite{teltarif:gsm-repeater}. Die Zeit für die Analyse und Manipulation der Daten (sieh \ref{hdl:theroetical-attack}), könnte durch Ausnutzung der Timing Advance Funktionalität gewonnen werden (siehe \ref{hdl:ta}). Mit Timing Advance ist der Gewinn von bis zu $233 \mu s$ für die Verarbeitung möglich.
+
+Dass die mit \ac{UMTS} eingeführte, gegenseitige Authentifizierung keinen \ac{MitM}-Angriff verhindern kann, haben \cite{meyer2004man} gezeigt. Auch der vorgestellte \ac{MitM} Angriff funktioniert in \ac{GSM}-Netzwerken mit \ac{UMTS}-\ac{AKA}, da dieses in \ac{GSM} keinen Integritätsschutz bietet und Nachrichten unbemerkt von einem Angreifer manipuliert werden können.
+
+Der vorgestellte \ac{MitM}-Angriff hat noch zwei Nachteile, die durch Gegenmaßnahmen behoben werden können. Erstens sehen die Opfer die Rufnummer des Angreifers, an den das Telefonat umgeleitet wird. Mit Call-Spoofing kann der Angreifer seine eigene Identität verschleiern und den Opfern die erwartete Identität vorgegeben. Zweitens ergibt sich eine größere Signallaufzeit für die übertragenen Daten, da diese von Opfer 1 zuerst zum Angreifer und dann zu Opfer 2 geschickt werden. Der Angreifer kann den Effekt möglichst gering halten, indem er sich in der Nähe von einem der beiden Opfer aufhält. Die zusätzliche Latenz durch den höheren \ac{TA}-Wert wegen einem \ac{MitM} auf der physikalischen Ebene fällt nicht ins Gewicht.
+
+
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
+%
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation Results}
+%\label{fig_sim}
+%\end{figure}
+
+% Note that IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command, the
+% \label for the overall figure must come after \caption.
+% \hfil must be used as a separator to get equal spacing.
+% The subfigure.sty package works much the same way, except \subfigure is
+% used instead of \subfloat.
+%
+%\begin{figure*}[!t]
+%\centerline{\subfloat[Case I]\includegraphics[width=2.5in]{subfigcase1}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{subfigcase2}%
+%\label{fig_second_case}}}
+%\caption{Simulation results}
+%\label{fig_sim}
+%\end{figure*}
+%
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+
+
+% An example of a floating table. Note that, for IEEE style tables, the 
+% \caption command should come BEFORE the table. Table text will default to
+% \footnotesize as IEEE normally uses this smaller font for tables.
+% The \label must come after \caption as always.
+%
+%\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{An Example of a Table}
+%\label{table_example}
+%\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c||c|}
+%\hline
+%One & Two\\
+%\hline
+%Three & Four\\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+% Note that IEEE does not put floats in the very first column - or typically
+% anywhere on the first page for that matter. Also, in-text middle ("here")
+% positioning is not used. Most IEEE journals/conferences use top floats
+% exclusively. Note that, LaTeX2e, unlike IEEE journals/conferences, places
+% footnotes above bottom floats. This can be corrected via the \fnbelowfloat
+% command of the stfloats package.
+
+
+\section{The Attack in detail}
+
+\subsection{The security flaw: encryption without integrity protection} \label{hdl:einleitung_verschlue_ohne_int}
+
+\ac{GSM} verwendet Stromverschlüsselung zum Schutz der vertraulichen Kommunikation und ist damit anfällig für "`Known Plaintext"' Angriffe ohne Kenntnis des kryptografischen Schlüssels. Da die Integrität der übertragenen Nachrichten nicht geschützt, ist kann ein \ac{MitM}-Angreifer bekannte Daten beliebig verändern.
+
+\begin{figure}[!t]
+	\centering \includegraphics[width=2.5in]{partially_known_plaintext_manipulation}
+	\caption[Datenmanipulation ohne Kenntnis des kryptografischen Schlüssels]{Datenmanipulation ohne Kenntnis des kryptografischen Schlüssels, erstellt mit yEd} \label{fig:partially-known-plaintext-manipulation}
+\end{figure}
+
+\ref{fig:partially-known-plaintext-manipulation} zeigt an einem Ausschnitt des Datenstroms, wie bekannte Daten trotz Verschlüsselung von einem \ac{MitM} geändert werden können. Da der Chiffrestrom das Ergebnis der \ac{XOR}-Kombination von Datenstrom und Schlüsselstrom ist, kann der Angreifer für bekannte Daten, den verwendeten Schlüsselstrom berechnen. Die Kenntnis des Schlüsselstroms für einen Teil des Datenstroms erlaubt dem Angreifer, diesen Teil beliebig zu manipulieren. Beim Empfänger kommt nach der Entschlüsselung der geänderte Datenstrom heraus. Methoden zum Schutz der Integrität übertragen zusätzlich zu den Nutzdaten in der Regel einen Hashwert, der nur korrekt berechnet werden kann, wenn der vollständige Klartext bekannt ist. Änderungen eines Angreifers, der nur einen Teil der Daten kennt, können also vom Empfänger bemerkt werden. Ohne Methoden zum Schutz der Integrität kann der Empfänger die Manipulation hingegen nicht bemerken.
+
+Die Kenntnis über den mangelnden Schutz von Verschlüsselung ohne Integrität ist weit verbreitet. Dennoch werden darauf basierende Angriffe von verschiedenen Übertragungsprotokollen und deren Spezifikationen ermöglicht. So zeigen \cite{paterson2006cryptography} die Schwachstelle in der \ac{IPSec} Implementierung im Linux Kernel auf. Sie können, wenn \ac{IPSec} ohne Authentifizierung und Integrität konfiguriert ist, die Verschlüsselung von \ac{ESP} Paketen erfolgreich brechen. \cite{degabriele2007attacking} stellen mehrere implementierungsunabhängige Angriffe auf \ac{IPSec} vor und zeigen damit, dass die Schwachstelle in \ac{IPSec} nicht nur im Linux Kernel existiert, sondern in der \ac{IPSec}-Standardisierung. Der für den Standard IEEE 802.11 für Drahtlosnetzwerke spezifizierte Verschlüsselungsalgorithmus \ac{WEP}, leidet an der gleichen Schwachstelle. Er gilt heute offiziell als unsicher, von Herstellern wird generell empfohlen, \ac{WEP} nicht mehr für ihre Geräte zu verwenden. Dennoch besteht nach wie vor die Möglichkeit, die meisten Wlan-Router und andere IEEE 802.11 kompatible Geräte für \ac{WEP} zu konfigurieren. \cite{bittau2006final} stellen einen Fragmentierungsangriff auf \ac{WEP} vor, der wegen seiner kurzen Ausführungszeit, trotz regelmäßiger Erneuerung des Schlüssels funktioniert. Wiederum basiert er auf fehlender Integrität von durch Stromverschlüsselung geschützten Daten. Die Arbeiten weisen alle auf die Gefahren der Nutzung von Verschlüsselung ohne Integrität hin und empfehlen, solche Konfigurationen generell nicht zu unterstützen und zu verwenden.
+
+\subsection{The idea} \label{hdl:einleitung_mitm-gsm}
+
+\begin{figure}[!t]
+	\centering \includegraphics[width=2.5in]{mitm_attack_overview.pdf}
+	\caption{MitM establishment} \label{fig:mitm-attack-overview}
+\end{figure}
+
+Alice ist mit dem \ac{GSM}-Netz verbunden und möchte Bob anrufen. Der Angreifer Marvin hat ein \ac{MitM}-Gerät ($\ac{MitM}_{Um}$) auf der \ac{Um} Schnittstelle installiert, mit dem er auf physikalischer Ebene Zugriff auf alle ausgetauschten Nachrichten zwischen Alice's Telefon und der \ac{GSM}-\ac{BTS} hat. Die Nachrichten sind kodiert und stromverschlüsselt. Stromverschlüsselung schützt nicht vor Datenmanipulation bei bekanntem Klartext und Bob's Telefonnummer ist Marvin bekannt. Er kann deshalb den Anrufaufbau im $\ac{MitM}_{Um}$ manipulieren und Bob's Telefonnummer austauschen. Da die Integrität der ausgetauschten Nachrichten in \ac{GSM} nicht geschützt ist, können weder Alice noch die \ac{BTS} die Manipulation bemerken. Der manipulierte Anruf wird deshalb vom Netzwerk als gültig erkannt und an Marvin's Mobiltelefon weitergeleitet. Das Netzwerk übernimmt Kodierung und Verschlüsselung des übertragenen Datenstroms, Marvin erhält das Gespräch von Alice im Klartext. Marvin ruft nun Bob an und verknüpft die beiden Anrufe so, dass Bob die Gesprächsdaten von Alice erhält und umgekehrt. Da Marvin Zugriff auf den Klartext beider Datenströme hat, kann er diese aufnehmen und manipulieren. Der dadurch entstandene \ac{MitM}-Angriff ($\ac{MitM}_{call}$) funktioniert unabhängig vom verwendeten Verschlüsselungsverfahren und ist in \ref{fig:mitm-in-voice-con} dargestellt.
+
+\begin{figure}[!t]
+	\centering \includegraphics[width=2.5in]{mitm_in_voice_connection.pdf}
+	\caption{Established MitM-Attack on the speech-connection} \label{fig:mitm-in-voice-con}
+\end{figure}
+
+Dass ein \ac{MitM}-Angriff auf dem \ac{Um} möglich ist, haben bereits \cite{barkan2003instant}, \cite{meyer2004man} und \cite{paget2010practical} gezeigt. Für ihre \ac{MitM}-Angriffe verwenden sie eine falsche Basisstation (siehe \ref{hdl:einleitung_stand-der-technik}). Das \ac{MitM}-Gerät für den vorgestellten Angriff benötigt nur Zugriff auf den verschlüsselten, kodierten Datenverkehr und muss den kryptografischen Schlüssels nicht berechnen. Statt einer falschen Basisstation reicht also ein \ac{MitM}-Gerät auf physikalischer Ebene, mit geringer Rechenleistung aus. Das würde in etwa der Funktionalität eines \ac{GSM}-Repeaters mit zusätzlichen Verarbeitungsroutinen für den Datenstrom entsprechen. Statt Daten nur zu verstärken und weiterzuleiten kann er diese auch analysieren und manipulieren. Die Zeit dafür kann durch die Verzögerung des Datenverkehrs von bis zu $233 \mu s$ gewonnen werden, die die Timing Advance Funktion des \ac{GSM}-Standards erlaubt (siehe \ref{hdl:ta}). Das \ac{MitM}-Gerät in der Funkschnittstelle, mit Zugriff auf den verschlüsselten und kodierten Datenverkehr, wird in dieser Arbeit vorausgesetzt. Die Möglichkeiten der Nutzung eines modifizierten \ac{GSM}-Repeaters für den \ac{MitM}-Angriff werden nicht untersucht.
+
+\subsection{Mathematical verification of the possibility to manipulate an encoded and enciphered message on the Um in GSM}
+
+Der Angreifer hat die verschlüsselte und kodierte Setup-Nachricht als Eingangparameter für die Manipulation. Um die Manipulation mathematisch darstellen zu können, werden in \ref{eq:coding_general_defs} Variablen definiert.
+
+\begin{equation}\label{eq:coding_general_defs}
+\begin{aligned}
+\mathbb{B} := \{0,1\},{}&\text{set of binary numbers} \\
+\oplus,{}&\text{bitwise exclusive OR (XOR)} \\
+\odot,{}&\text{bitwise AND} \\
+\boldsymbol{d} \in \mathbb{B}^{184},{}&\text{plaintext data} \\
+\boldsymbol{d_m} \in \mathbb{B}^{184},{}&\text{manipulated data} \\
+\boldsymbol{r} \in \mathbb{B}^{228},{}&\text{defined blockcode remainder} \\
+\boldsymbol{k_s} \in \mathbb{B}^{456},{}&\text{stream cipher} \\
+\end{aligned}
+\end{equation}
+
+\ref{eq:coding_fun_def} definiert die bei der Kanalkodierung eingesetzten Verfahren auf den Datenströmen als Funktionen auf binären Vektoren.
+
+\begin{equation}\label{eq:coding_fun_def}
+\begin{aligned}
+{}\boldsymbol{u}: \mathbb{B}^{184} \to \mathbb{B}^{228}, \boldsymbol{x} \mapsto \boldsymbol{u}(\boldsymbol{x}),{}&\text{block coding} \\
+{}\boldsymbol{c}: \mathbb{B}^{228} \to \mathbb{B}^{456}, \boldsymbol{x} \mapsto \boldsymbol{c}(\boldsymbol{x}),{}&\text{convolutional coding} \\
+{}\boldsymbol{i}: \mathbb{B}^{456} \to \mathbb{B}^{456}, \boldsymbol{x} \mapsto \boldsymbol{i}(\boldsymbol{x}),{}&\text{interleaving} \\
+{}\boldsymbol{a}: \mathbb{B}^{456} \to \mathbb{B}^{456}, \boldsymbol{x} \mapsto \boldsymbol{x} \oplus \boldsymbol{k_s},{}&\text{ciphering} \\
+{}\boldsymbol{b}: \mathbb{B}^{456} \to \mathbb{B}^{464}, \boldsymbol{x} \mapsto \boldsymbol{b}(\boldsymbol{x}),{}&\text{burst mapping} \\
+{}\boldsymbol{u_r}(\boldsymbol{x}) = \boldsymbol{u}(\boldsymbol{x}) \oplus \boldsymbol{r},{}&\text{block coding}\\ 
+{}&\text{with remainder} \\
+{}\left( \boldsymbol{b} \circ \boldsymbol{a} \circ  \boldsymbol{i} \circ \boldsymbol{c} \circ \boldsymbol{u_r} \right) \left(\boldsymbol{d}\right),{}&\text{encoded and} \\
+{}&\text{enciphered data} \\
+\end{aligned}
+\end{equation}
+
+Für Lineare Abbildungen $\boldsymbol{f}: \boldsymbol{V} \to \boldsymbol{W}$ auf dem Galoiskörper $\mathbb{F}_2$ 2. Ordnung gilt \cite[S. 142 Tabelle 3.2]{werner2008codierung}:
+
+\begin{equation}\label{eq:lin_func}
+\begin{aligned}
+{}&\boldsymbol{x}, \boldsymbol{y} \in \boldsymbol{V}, a \in \{0, 1\} \Rightarrow \\
+{}&\boldsymbol{f}(a \odot \boldsymbol{x} \oplus \boldsymbol{y}) = a \odot \boldsymbol{f}(\boldsymbol{x}) \oplus \boldsymbol{f}(\boldsymbol{y})
+\end{aligned}
+\end{equation}
+
+Die \ac{XOR} Operation ist kommutativ, assoziativ und hat als inverse Element das Element selbst und als neutrales Element 0.
+
+\begin{align}
+\boldsymbol{x} \oplus \boldsymbol{x} = 0,{}&\text{inverses Element} \label{eq:inverse_element} \\
+\boldsymbol{x} \oplus 0 = \boldsymbol{x},{}&\text{neutrales Element} \label{eq:neutral_element} \\
+\boldsymbol{x} \oplus \boldsymbol{y} = \boldsymbol{y} \oplus \boldsymbol{x},{}&\text{Kommutativität} \label{eq:komm} \\
+\left( \boldsymbol{x} \oplus \boldsymbol{y} \right) \oplus \boldsymbol{z} = \boldsymbol{x} \oplus \left( \boldsymbol{y} \oplus \boldsymbol{z} \right),{}&\text{Assoziativität} \label{eq:asso}
+\end{align}
+
+Da Blockkodierung, Faltungskodierung und Interleaving lineare Abbildungen sind \cite[S. 142 ff.]{werner2008codierung}, gilt für sie Additivität.
+
+\begin{equation}\label{eq:additivity_codes}
+\begin{aligned}
+\boldsymbol{u}(\boldsymbol{x} \oplus \boldsymbol{y}) {}&= \boldsymbol{u}(\boldsymbol{x}) \oplus \boldsymbol{u}(\boldsymbol{y}) \\
+\boldsymbol{c}(\boldsymbol{x} \oplus \boldsymbol{y}) {}&= \boldsymbol{c}(\boldsymbol{x}) \oplus \boldsymbol{c}(\boldsymbol{y}) \\
+\boldsymbol{i}(\boldsymbol{x} \oplus \boldsymbol{y}) {}&= \boldsymbol{i}(\boldsymbol{y}) \oplus \boldsymbol{i}(\boldsymbol{y})\end{aligned}
+\end{equation}
+
+In \ac{GSM} wird für die Blockkodierung mit dem Firecode ein Rest $\boldsymbol{r}$ definiert, der bei der Polynomdivision übrig bleiben muss (siehe \ref{hdl:blockcode}. Für die Funktion $\boldsymbol{u_r}(\boldsymbol{x})$ aus \ref{eq:coding_general_defs} ändert sich die Additivität damit wie folgt:
+
+\begin{align}
+\begin{split}\label{eq:blockcode_rest_1}
+\boldsymbol{u_r}(\boldsymbol{x}) \oplus \boldsymbol{u_r}(\boldsymbol{y}) {}&= \boldsymbol{u}(\boldsymbol{x}) \oplus \boldsymbol{r} \oplus \boldsymbol{u}(\boldsymbol{y}) \oplus \boldsymbol{r} \\
+&\aoverb{\ref{eq:inverse_element}}{=} \boldsymbol{u}(\boldsymbol{x}) \oplus \boldsymbol{u}(\boldsymbol{y}) \\
+&\aoverb{\ref{eq:additivity_codes}}{=} \boldsymbol{u}(\boldsymbol{x} \oplus \boldsymbol{y})
+\end{split}\\
+\begin{split}\label{eq:blockcode_rest_2}
+\Rightarrow \boldsymbol{u_r}(\boldsymbol{x} \oplus \boldsymbol{y}) {}&= \boldsymbol{u}(\boldsymbol{x} \oplus \boldsymbol{y}) \oplus \boldsymbol{r} \\
+&\aoverb{\ref{eq:blockcode_rest_1}}{=} \boldsymbol{u_r}(\boldsymbol{x}) \oplus \boldsymbol{u_r}(\boldsymbol{y}) \oplus \boldsymbol{r}
+\end{split}
+\end{align}
+
+Für modifizierte Daten $\boldsymbol{d_m}$ gilt somit:
+
+\begin{equation}\label{eq:mod_data}
+\begin{aligned}
+\left( \boldsymbol{c} \circ \boldsymbol{u_r} \right) \left(\boldsymbol{d_m}\right) &\aoverb{\ref{eq:inverse_element},\ref{eq:neutral_element}}{=} \left( \boldsymbol{c} \circ \boldsymbol{u_r} \right) \left((\boldsymbol{d} \oplus \boldsymbol{d}\right) \oplus \boldsymbol{d_m}\right) \\ 
+&\aoverb{\ref{eq:komm}}{=} \left( \boldsymbol{c} \circ \boldsymbol{u_r} \right) \left(\boldsymbol{d} \oplus \left(\boldsymbol{d} \oplus \boldsymbol{d_m}\right)) \\
+&\aoverb{\ref{eq:blockcode_rest_2}}{=} \boldsymbol{c}\left(\boldsymbol{u_r}\left(\boldsymbol{d}\right) \oplus \boldsymbol{u_r}\left(\boldsymbol{d} \oplus \boldsymbol{d_m}\right) \oplus \boldsymbol{r}\right) \\
+&\aoverb{\ref{eq:additivity_codes}}{=} \left( \boldsymbol{c} \circ \boldsymbol{u_r} \right) \left(\boldsymbol{d}\right) \oplus \left( \boldsymbol{c} \circ \boldsymbol{u_r} \right) \left(\boldsymbol{d} \oplus \boldsymbol{d_m}\right) \oplus \\
+&\quad\,\oplus \boldsymbol{c}\left(\boldsymbol{r}\right)
+\end{aligned}
+\end{equation}
+
+Die Stromverschlüsselung kann als \ac{XOR} Verknüpfung eines Datenstroms mit dem Schlüsselstrom $\boldsymbol{k_s}$ dargestellt werden. 
+Wegen der Kommutativität und Assoziativität der \ac{XOR} Operation gilt:
+
+\begin{equation}\label{eq:streamcipher}
+\begin{aligned}
+\boldsymbol{a}(\boldsymbol{x} \oplus \boldsymbol{y}) {}&= (\boldsymbol{x} \oplus \boldsymbol{y}) \oplus \boldsymbol{k_s} \\ 
+&\aoverb{\ref{eq:komm}}{=} \boldsymbol{x} \oplus (\boldsymbol{y} \oplus \boldsymbol{k_s}) =  \boldsymbol{x} \oplus \boldsymbol{a}(\boldsymbol{y}) \\
+&\aoverb{\ref{eq:asso}}{=} \boldsymbol{y} \oplus (\boldsymbol{x} \oplus \boldsymbol{k_s}) = \boldsymbol{y} \oplus \boldsymbol{a}(\boldsymbol{x})
+\end{aligned}
+\end{equation}
+
+Mit \ref{eq:streamcipher} können die verschlüsselten, kodierten Daten wie folgt dargestellt werden:
+
+\begin{equation}\label{eq:manip}
+\begin{aligned}
+{}&\left( \boldsymbol{a} \circ \boldsymbol{i} \circ \boldsymbol{c} \circ \boldsymbol{u_r} \right) \left(\boldsymbol{d_m}\right) =\\
+&= \left( \boldsymbol{i} \circ \boldsymbol{c} \circ \boldsymbol{u_r} \right) \left(\boldsymbol{d_m}\right) \oplus \boldsymbol{k_s} \\
+&\aoverb{\ref{eq:mod_data}}{=} \boldsymbol{i}\left(( \boldsymbol{c} \circ \boldsymbol{u_r}\right)\left(\boldsymbol{d}\right) \oplus \left( \boldsymbol{c} \circ \boldsymbol{u_r}\right) \left(\boldsymbol{d_m} \oplus \boldsymbol{d}\right) \oplus \boldsymbol{c}\left(\boldsymbol{r}\right)) \oplus \boldsymbol{k_s} \\
+&\aoverb{\ref{eq:additivity_codes}}{=} \left( \boldsymbol{i} \circ \boldsymbol{c} \circ \boldsymbol{u_r}\right)\left(\boldsymbol{d}\right) \oplus \left( \boldsymbol{i} \circ \boldsymbol{c} \circ \boldsymbol{u_r}\right) \left(\boldsymbol{d_m} \oplus \boldsymbol{d}\right) \oplus \\
+&\quad\,\oplus \left( \boldsymbol{i} \circ \boldsymbol{c}\right)\left(\boldsymbol{r}\right) \oplus \boldsymbol{k_s} \\
+&\aoverb{\ref{eq:streamcipher}}{=} \underbrace{\left(\boldsymbol{a} \circ \boldsymbol{i} \circ \boldsymbol{c} \circ \boldsymbol{u_r}\right)\left(\boldsymbol{d}\right)}_\text{Teil 1} \oplus \underbrace{\left(\boldsymbol{i} \circ \boldsymbol{c} \circ \boldsymbol{u_r}\right)\left(\boldsymbol{d_m} \oplus \boldsymbol{d}\right)}_\text{Teil 2} \oplus \\
+&\quad\,\oplus \underbrace{\left(\boldsymbol{i} \circ \boldsymbol{c}\right)\left(\boldsymbol{r}\right)}_\text{Teil 3}
+\end{aligned}
+\end{equation}
+
+\textbf{Teil 1} der obigen Gleichung ist bekannt. Er kann mit der Umkehrfunktion der Burstmapping Funktion $\boldsymbol{b}^{-1}(\boldsymbol{x})$, aus der als bekannt vorausgesetzten, kanalkodierten und verschlüsselten \ac{LAPDm}-Nachricht berechnet werden. Die Umkehrfunktion entspricht dem Burst unmapping beim Dekodierungsvorgang. \ref{eq:pt-1-gen} zeigt den Zusammenhang. 
+
+\begin{equation}\label{eq:pt-1-gen}
+\begin{aligned}
+\left( \boldsymbol{a} \circ \boldsymbol{i} \circ \boldsymbol{c} \circ \boldsymbol{u_r}\right)\left(\boldsymbol{d}\right) = \left(( \boldsymbol{b}^{-1} \circ \boldsymbol{b} \right) \circ \boldsymbol{a} \circ \boldsymbol{i} \circ \boldsymbol{c} \circ \boldsymbol{u_r}\right)\left(\boldsymbol{d}\right)
+\end{aligned}
+\end{equation}
+
+\textbf{Teil 2} aus \ref{eq:manip} kann berechnet werden, da der manipulierte Teil der Originaldaten $\boldsymbol{d}$, die Daten durch die man diesen Teil ersetzen möchte $\boldsymbol{d_m}$, sowie Algorithmen für Interleaving, Faltungskodierung und Blockcode bekannt sind.
+
+\textbf{Teil 3} aus \ref{eq:manip} kann berechnet werden, da der Sollrest $\boldsymbol{r}$ des Blockcodes (siehe \ref{hdl:blockcode}) sowie Algorithmen für Faltungskodierung und Interleaving bekannt sind.
+
+Als Ergebnis kann festgehalten werden, dass ein Angreifer die Rufnummer des angerufenen Netzteilnehmers in der verschlüsselten, kodierten Nachricht manipulieren kann sofern er deren Inhalt und Position im Datenstrom kennt ("`Known Plaintext"'). Diese Manipulation, in Kombination mit dem fehlenden Integritätsschutz in \ac{GSM}, ist die Grundlage des vorgestellten Angriffs. Sie wird ausgenutzt, um den Anruf umzuleiten.
+
+Die Manipulation wurde durch Anwendung der Algorithmen auf einen konkreten, verschlüsselten und kodierten Beispieldatensatz verifiziert. In \ref{hdl:a_example_setup_manip} kann das Ergebnis eingesehen werden.
+
+\subsection{Analysis of the message flow of a successful, user originated call establishment on the Um-interface}\label{hdl:call-setup-message-flow-analysis}
+
+Um herauszufinden, welche Nachrichten für den Aufbau einer Telefonverbindung zuständig sind, wird der Nachrichtenfluss auf der Um Schnittstelle analysiert. Folgende Fragen müssen beantwortet werden:
+
+\begin{itemize}
+\item Wie wird das Opfer identifiziert?
+\item Wie wird die für den Anrufaufbau zuständige "`Setup"' Nachricht im Nachrichtenfluss identifiziert?
+\end{itemize}
+
+For the analysis, the mobile originated call establishment has been anaylsed with a captured message flow and the gsm specifications with the following results. 
+Das Opfer kann im \texttt{CM-SERVICE-REQUEST} identifiziert werden, da in diesem seine Identität in Form der \ac{TMSI} oder \ac{IMSI} enthalten ist. Der \texttt{CM-SERVICE-REQUEST} ist Teil des \ac{MM} und wird vom \ac{SABM} huckepack getragen (piggybacking). Der \ac{SABM} ist unverschlüsselt, die Nachrichten können somit vom $\ac{MitM}_{Um}$ nach der Identität des Opfers gefiltert werden. Da die \ac{TMSI} nur die temporäre Identität eines Netzteilnehmers ist, muss sie seiner eindeutigen Identität (\ac{IMSI} oder \ac{MSISDN}), zugeordnet werden. Dazu gibt es zwei Möglichkeiten:
+
+\begin{itemize}
+\item \textbf{Silent \ac{SMS}}: Eine "`lautlose"' \ac{SMS} wird an die Telefonnummer des Opfers geschickt und der \ac{PCH} des \ac{BTS}, in dessen Zuständigkeitsbereich es sich befindet, auf Paging Nachrichten abgehört. Die \ac{TMSI}, die über die eingehende \ac{SMS} benachrichtigt wird, gehört zur \ac{MSISDN} des Opfers.
+\item \textbf{\ac{IMSI} Catcher}: Hat der Angreifer über ein \ac{MitM}-Gerät Zugriff auf den Datenverkehr des \ac{Um}, kann er auf alle eingehenden \texttt{L3-SERVICE-REQUESTS} mit einem \texttt{IDENTITY-REQUEST} die \ac{IMSI} des Netzteilnehmers abfragen. Laut Spezifikation müssen \ac{MS} jederzeit bereit sein, auf einen Identity Request zu antworten \cite[Kap. 4.3.3.2]{3gpp:24.008}. Hat die \ac{MS} als Identität die \ac{TMSI} im \texttt{L3-SERVICE-REQUEST} angegeben, bekommt der Angreifer so die Zuordnung zur \ac{IMSI}.
+\end{itemize}
+
+Kennt der Angreifer die \ac{TMSI} des Opfer, filtert er den \ac{SDCCH} der \ac{BTS} nach \ac{SABM}-Nachrichten, die einen \texttt{CM-SERVICE-REQUEST} tragen. Diese sind immer noch unverschlüsselt, er kann also mit dem "`\ac{CM} Service Type"' Feld überprüfen, ob der angeforderte Dienst ein "`\ac{CM} mobile originated call establishment"' ist. Da nur ausgehende Anrufe für den Angriff von Interesse sind, können alle anderen angeforderten Dienste verworfen werden.
+
+Die Verschlüsselung der Signalisierung beginnt erst mit dem \texttt{CIPHERING-MODE-COMMAND}. Da dieser selbst noch unverschlüsselt übertragen wird, kann er identifiziert werden. Ab dem \texttt{CIPHERING-MODE-COMMAND} werden im Uplink die 184 Datenbit der \ac{LAPDm}-Frames verschlüsselt. Der Angreifer hat keinen Zugriff mehr auf Informationen ab einschließlich Schicht 2 und kann deshalb die \texttt{SETUP}-Nachricht nicht ohne Weiteres identifizieren. Vom \ac{MS} werden aber, wenn keine Fehler in der Datensicherungsschicht auftreten, nach dem \texttt{CIPHERING-MODE-COMMAND} immer die zwei gleichen Signalisierungsnachrichten gesendet. Zuerst ein \ac{LAPDm}-\ac{RRm}-Frame, dann die \texttt{CIPHERING-MODE-COMPLETE}-Nachricht. Unter der Voraussetzung, dass auf Ebene 2 keine Fehler aufgetreten sind, kann der Angreifer die \texttt{SETUP}-Nachricht im verschlüsselten Datenstrom also durch Mitzählen aller Nachrichten ab dem \texttt{CIPHERING-MODE-COMMAND} lokalisieren. 
+
+\section{Implementation and verification}
+
+\subsection{Die Virtualisierung der physikalischen Schicht der Um-Schnittstelle}
+
+Für die Verifikation des \ac{MitM}-Angriffs wurde die physikalische Schicht der \ac{Um}-Schnittstelle virtualisiert. Damit ist eine Kommunikation über das \ac{Um} möglich, ohne spezielle Transceiverhardware für \ac{MS}, \ac{BTS} und \ac{MitM} zu benötigen. Die Verwendung einer Testumgebung mit virtueller \ac{Um}-Schnittstelle hat mehrere Vorteile. Da für den Nachrichtenaustausch keine Transceiverhardware benötigt wird, kann deren Konfiguration und Implementierung als Fehlerquelle bei der Entwicklung ausgeschlossen werden. Datenflüsse können schnell und kostengünstig aufgezeichnet und analysiert werden, was bei der Softwareentwicklung die Überprüfung der Auswirkungen einer Änderung vereinfacht. Im Vergleich mit einer Testumgebung mit realer Funkschnittstelle kann die virtualisierte Testumgebung einfacher eingerichtet und konfiguriert werden. Zudem werden Probleme mit der Legalität einer \ac{BTS} und dem Funkverkehr auf für \ac{GSM} reservierten Frequenzbändern vermieden. 
+
+Als Grundlage für die Implementierung kamen zwei mögliche Ansätze in Frage. Die in MATLAB\footnote{\url{https://de.mathworks.com}} geschriebene Virtualisierung der Funkschnittstelle von kkro\footnote{\url{https://github.com/kkroo/matphy}} und die angefangene Implementierung einer virtuellen \ac{BTS} im osmoBTS Projekt von Harald Welte\footnote{\url{https://github.com/osmocom/osmo-bts.git}}. Für die Masterarbeit wurde der zweite Ansatz verfolgt. Für die virtuelle \ac{BTS} fehlten zwar noch Teile der Funktionalität und das Gegenstück in osmocomBB, die Implementierung war aber deutlich aktueller. Des Weiteren konnte so die vorhandene Funktionalität aus osmocomBB, osmoBTS und der libosmocore Bibliothek genutzt werden.
+
+Um die Übertragung auf der Funkschnittstelle nachzubilden, müssen Nachrichten die \ac{TDMA}/\ac{FDMA} Informationen der physikalischen Schicht des \ac{Um} enthalten (siehe \ref{hdl:a_tdma_fdma}). Die \textbf{Frequenz} wird in \ac{GSM} über die \ac{ARFCN} festgelegt. Eine \ac{ARFCN} definiert eine Uplink- und eine Downlinkfrequenz, über die \ac{MS} und \ac{BTS} kommunizieren. Der \ac{TDMA}-Zeitschlitz legt den \textbf{physikalischen Kanal} der Nachricht fest, die \ac{FN} ihren \textbf{logischen Kanal} (siehe \ref{hdl:logical-channels}). Durch physikalischen und logischen Kanal wird eindeutig festgelegt, wie die physikalische Schicht mit der Nachricht umgehen muss und über welchen \ac{SAP} sie diese an höhere Schichten weiterleitet. Auf dem \ac{Um} werden in der Regel auch Messungen der Signalqualität durchgeführt und übertragen. Für das virtuelle \ac{Um} sind diese weniger von Bedeutung, da alle Nachrichten mit gleicher Qualität übertragen werden.
+
+Für die Virtualisierung sollen die Nachrichten des \ac{Um} statt über Funksignale zwischen Sockets auf einer Linux Maschine übertragen werden. Für die Kapselung von \ac{Um}"=Nach\-rich\-ten und deren Übertragung über \ac{UDP}/\ac{IP} bietet die libosmocore Bibliothek den \ac{GSMTAP}"=Header an. \ac{TAP} Header sind dazu gedacht, einem Analyse- oder Testgerät Informationen über den Datenverkehr einer Netzwerkschnittstelle zugänglich zu machen. Er übernimmt in Osmocom Projekten die Funktion des Wireshark-Dissektors bei der Aufzeichnung und Protokollierung des Nachrichtenverkehr auf dem \ac{Um} mit Wireshark. Von der \ac{IANA} wurde dem \ac{GSMTAP}-Dissektor der Port 4729 zugewiesen. \ref{lst:gsmtap_hdr} zeigt den Aufbau des \ac{GSMTAP} Headers.
+
+Die Implementierung des virtuellen \ac{Um} auf \ac{UDP}/\ac{IP} Basis verwendet den \ac{GSMTAP}"=Header für die Datenübertragung und erweitert damit seinen bisherigen Einsatzbereich. Das Feld \texttt{arfcn} enthält ein Uplink Flag und definiert so eindeutig die \textbf{Frequenz}. Der \textbf{physikalische Kanal} wird von \texttt{timeslot} definiert und der \textbf{logische Kanal} von \texttt{frame\_number} und \texttt{sub\_type}. Im Gegensatz zur Funkschnittstelle werden die Pakete auf dem virtuellen \ac{Um} dabei nicht in Bursts unterteilt. Es werden vollständige \ac{LAPDm}-Nachrichten von bis zu 184 Bit in einer \ac{GSMTAP}-Nachricht verpackt und über \ac{UDP}/\ac{IP} zur Gegenseite des virtuellen \ac{Um} geschickt. Durch die Verwendung des \ac{GSMTAP}-Headers erhält Wireshark außerdem out-of-the-box die Fähigkeit, den Datenverkehr auf dem virtuellen \ac{Um} darzustellen. Der \ac{GSMTAP}-Header ist nicht für die Übertragung von kanalkodierten und verschlüsselten Nachrichten konzipiert. Das virtuelle \ac{Um} unterstützt deshalb weder Kanalkodierung noch verschlüsselte Verbindungen. Für die praktische Durchführung des Angriffs wurde diese Funktionalität im osmoMITM Projekt implementiert (siehe \ref{hdl:mitm_impl}).
+
+Wegen der benötigten Broadcast Eigenschaften der Funkschnittstelle, eignen sich Linux Multicast-Sockets für die Kommunikation auf dem virtuellen \ac{Um}. Sie ermöglichen es einem \ac{BTS}-Prozess, Nachrichten an mehrere \ac{MS}-Prozesse zu versenden und umgekehrt. Für Multicast-Sockets ist auf Linux/Unix Systemen der \ac{IP}-Adressraum von 224.0.0 - 240.0.0.0 reserviert. Es gibt Multicast-Server-Sockets und Client-Sockets. Ein Server versendet Nachrichten an eine \ac{IP}-Adresse aus dem für Multicast reservierten Adressraum. Client-Sockets können diese empfangen, indem sie der Multicast Gruppe beitreten, die dieser \ac{IP}-Adresse entspricht. Die Konfiguration von Multicast kann dem Linux Benutzerhandbuch unter ip(7)\footnote{\url{http://man7.org/linux/man-pages/man7/ip.7.html}} entnommen werden. Um die Funkschnittstelle mit Multicast-Sockets zu simulieren, wird für Uplink und Downlink je ein Client und ein Server-Socket benötigt. \ref{fig:virt-um-with-mcast} veranschaulicht die Verwendung der Multicast-Sockets im virtuellen \ac{Um}.
+
+\begin{figure}[!t]
+	\centering \includegraphics[width=2.5in]{virt_um_with_multicast.pdf}
+	\caption[Die Umsetzung der virtuellen Funkschnittstelle mit Multicast-Sockets]{Die Umsetzung der virtuellen Funkschnittstelle mit Multicast-Sockets, erstellt mit yEd} \label{fig:virt-um-with-mcast}
+\end{figure}
+
+Wie in \ref{fig:virt-um-with-mcast} zu sehen, werden dabei je ein Server-Socket und ein Client-Socket zu Uplink und Downlink zusammengeschlossen. Die \ac{MS} kann über die \texttt{send()} Funktion Daten auf dem Uplink senden und über den \texttt{callback()} auf dem Downlink empfangen. Der Callback wird beim Start des virtuellen \ac{Um} registriert und ist die Methode, die vom Betriebssystem bei eingehenden Daten auf dem Socket aufgerufen wird. Umgekehrt dazu empfängt die \ac{BTS} auf dem Uplink und sendet auf dem Downlink. Durch die Realisierung mit Multicast-Sockets, können mehrere \ac{MS} und auch \ac{BTS} am virtuellen \ac{Um} angemeldet werden. Fügt man in \ref{fig:virt-um-with-mcast} zum Beispiel eine weitere \ac{MS} hinzu und konfiguriert sie mit den selben \ac{IP}-Adressen für Uplink (225.0.0.1) und Downlink (224.0.0.1), werden alle vom \ac{BTS} gesendeten Nachrichten von beiden \ac{MS} empfangen. Für die Virtualisierung wurde in den beiden Osmocom Projekten osmocomBB und osmoBTS die Implementierung der physikalischen Schicht der Funkschnittstelle ersetzt. Da auf der Socket-Ebene die Anforderungen des virtuellen \ac{Um} auf \ac{MS} und \ac{BTS}-Seite die selben sind, wurde die damit zusammenhängende Funktionalität gekapselt. Die Datei \texttt{virt\_um.c} wird auf beiden Seiten als geteilte Ressource verwendet, automatisiert die Erstellung der Sockets, lässt sich mit Uplink und Downlink-Adressen sowie der \texttt{callback()} Methode konfigurieren und bietet die \texttt{send()} Funktion an.
+
+Mit der Einbindung des virtuellen \ac{Um} in osmocomBB, osmoBTS und osmoMITM konnte der \ac{MitM}-Angriff erfolgreich simuliert und verifiziert werden. Auf der OsmoDevCon2017\footnote{\url{https://osmocom.org/projects/osmo-dev-con/wiki/OsmoDevCon2017}} wurde die Möglichkeit angesprochen, das virtuelle \ac{Um} in Zukunft in das Projekt osmoTester einzubinden. Da dadurch schnelle, hardwareunabhängige Tests möglich sind, kann es von Jenkins \footnote{\url{https://jenkins.io/}} zur Überprüfung korrekter Nachrichtenabläufe auf der Funkschnittstelle bei neuen Commits verwendet werden. Jenkins ist ein webbasiertes Tool für die Automatisierung des Software-Building Prozesses und wird dafür in Osmocom verwendet.
+
+\subsubsection{OsmoBTS mit virtueller Um-Schnittstelle}
+
+Das osmoBTS Projekt unterstützt unterschiedliche Hardware, was sich in der Ordnerstruktur widerspiegelt. So ist ein Großteil der \ac{BTS}-Funktionalität in einem Ordner \texttt{src/common}, der gemeinsam genutzte Funktionalität beinhaltet, ausgelagert. Er enthält vor allem die Implementierungen der hardwareunabhängigen, höheren Protokollschichten. Die Schnittstellen für die Unterstützung unterschiedlicher Transceiverhardware sind in mehreren weiteren Ordnern zu finden. Im Ordner \texttt{src/osmo-bts-trx} liegt zum Beispiel Code der Bursts auf einer \ac{UDP}-Schnittstelle von verschiedenen \ac{SDR}-Geräten entgegennimmt und verarbeitet. In \texttt{src/osmo-bts-sysmo} liegt eine Implementierung der physikalischen Schicht, mit der von sysmocom hergestellte \ac{BTS} Produkte über Ethernet angebunden werden können. Der Automake\footnote{\url{https://www.gnu.org/software/automake/manual}} Build-Prozess verbindet die Implementierungen der Protokollschichten und baut für jede der unterstützen Hardwaregeräte eine eigene Anwendung zusammen.
+
+Für osmoBTS wurde in dieser Arbeit im Ordner \texttt{src/osmo-bts-virtual} die physikalische Schicht zur Unterstützung der virtuellen \ac{Um}-Schnittstelle implementiert. Sie erwartet und verarbeitet in \ac{GSMTAP} verpackte Nachrichten auf einem Multicast-Socket. Folgende Grafik zeigt die Schnittstellen der virtuellen \ac{BTS} (\texttt{osmo-bts-virt}) im Vergleich zu den anderen erwähnten \ac{BTS}-Anwendungen \texttt{osmo-bts-trx} und \texttt{osmo-bts-sysmo}.
+
+\begin{figure}[!t]
+	\centering \includegraphics[width=2.5in]{virt-bts-in-osmocom.pdf}
+	\caption[Die Integration der virtuellen physikalischen Schicht in osmoBTS]{Die Integration der virtuellen physikalischen Schicht in osmoBTS, erstellt mit yEd} \label{fig:virt-bts-in-osmocom}
+\end{figure}
+
+Wie in obiger Grafik zu sehen, kann die virtuelle \ac{BTS} direkt über das virtuelle \ac{Um} mit verbundenen Mobiltelefonen kommunizieren und braucht keine Schnittstelle zu Transceiverhardware, wie \texttt{osmo-bts-trx} und \texttt{osmo-bts-sysmo}. Die Abis-Schnittstelle zum \ac{BSC} genauso wie die Protokollschichten 2 und 3 sind im \texttt{common} Teil des osmoBTS Projekts implementiert und werden aus diesem eingebunden. In der virtuellen Testumgebung wurde in dieser Arbeit \texttt{osmo-nitb} als \ac{BSC} verwendet (siehe \ref{hdl:grundlagen_osmocom_OpenBSC}). Neben der Funktion als \ac{BSC} enthält \texttt{osmo-nitb} weitere Funktionalität von Komponenten des \ac{SS7} Netzwerks, wie zum Beispiel dem \ac{HLR}.
+
+\subsubsection{OsmocomBB mit virtueller Um-Schnittstelle}
+
+OsmocomBB ist eine Sammlung von Software rund um eine \ac{MS}, die in der Regel mit dem Konsolenprogramm Osmocon verwendet wird. Mit Osmocon ist es möglich, die Firmware im flüchtigen Speicher eines der unterstützten Mobiltelefone, wie zum Beispiel dem Motorola C123, auszutauschen. Über eine serielle Schnittstelle kann man das Telefon mit einem Linux Rechner verbinden und von diesem aus steuern, welches der vorkompilierten Firmware Pakete auf das Telefon geladen werden soll. Die einfachste Firmware dürfte \texttt{hello\_world} sein, die auf dem Display des Mobiltelefons einen Text ausgibt. \texttt{rssi\_scan} kann die \acp{RSSI}, also die Signalstärken der \ac{BTS} im Umkreis, messen und stellt diese auf dem Display dar. Die umfangreichste Firmware ist \texttt{layer1}. Sie implementiert die physikalische Schicht des \ac{GSM}-Protokollstapels für den Baseband-Prozessor. Für die Steuerung der Funktionen des Baseband-Prozessors und des \ac{DSP} von außen gibt es eine Kontrollschnittstelle. Diese Schnittstelle wird \ac{L1CTL} genannt und ist ein nicht spezifiziertes, osmocomBB-internes Protokoll. Osmocon bietet für den Zugriff auf die Schnittstelle ein lokales Linux-Domain-Socket an und leitet den Datenverkehr auf diesem über die serielle Schnittstelle zur \texttt{layer1}-Firmware weiter. Der Funktionsumfang des \ac{L1CTL}-Protokolls entspricht im Großen und Ganzen dem \ac{SAP} der physikalischen Schicht, die verschiedenen \ac{L1CTL}-Headertypen den \ac{SAP}-Primitives. Im Gegensatz zu einer internen \ac{SAP}-Schnittstelle ist die externe \ac{L1CTL}-Schnittstelle aber von außen über das Socket zugänglich. Mehrere sogenannte L23-Apps, die die Funktionalität der höheren \ac{GSM}-Protokollschichten implementieren, nutzen \ac{L1CTL} für die Steuerung der physikalischen Schicht des verbundenen Mobiltelefons. Die L23-App \texttt{ccch\_scan} ist ein passiver \ac{CCCH} und \ac{BCCH} Sniffer, der empfangene Nachrichten über \ac{GSMTAP} protokolliert. \texttt{cell\_log} macht einen vollständigen Messdurchlauf der Empfangsstärken aller \ac{ARFCN} und gibt das Ergebnis auf der Kommandozeile aus. Besonders interessant ist die L23-App \texttt{mobile}, die die Funktionalität eines klassischen Mobiltelefons simuliert und über eine \ac{VTY}-Schnittstelle gesteuert werden kann. Damit kann der Nutzer zum Beispiel eine Telefonnummer anrufen, eine \ac{SMS} versenden oder nach \ac{BTS} in Reichweite suchen. 
+
+Die Struktur des Projekts trennt strikt zwischen Host-Software und Target-Software. Im Ordner \texttt{src/host} befinden sich alle Anwendungen, die auf dem Linux-Rechner laufen, wie die L23-Apps und Osmocon. In \texttt{src/target} wird die Software für das Mobiltelefon gesammelt. Sie muss zuerst cross-kompiliert und dann mit Osmocon geladen werden. Das sind alle Firmware- Implementierungen wie \texttt{layer1} oder \texttt{rssi\_scan}. Da die Anwendung für das virtuelle \ac{MS} nicht auf dem Mobiltelefon, sondern auf dem Rechner ausgeführt wird, wurde der Ordner \texttt{virt\_phy} für dessen Entwicklung in \texttt{src/host} angelegt. Folgende Grafik zeigt die Schnittstellen der virtuellen physikalischen Schicht (\texttt{virthphy}) in osmocomBB im Vergleich mit anderen Target- und Host-Anwendungen.
+
+\begin{figure}[!t]
+	\centering \includegraphics[width=2.5in]{virt-bb-in-osmocom.pdf}
+	\caption[Die Integration der virtuellen physikalischen Schicht in osmocomBB]{Die Integration der virtuellen physikalischen Schicht in osmocomBB, erstellt mit yEd} \label{fig:virt-bb-in-osmocom}
+\end{figure}
+
+In \ref{fig:virt-bb-in-osmocom} kann man erkennen, dass \texttt{virtphy} die strikte Trennung der physikalischen Schicht von den höheren Schichten einhält. \texttt{virtphy} implementiert nur die physikalische Schicht der virtuellen \ac{MS}, die höheren Protokollschichten liegen in den L23-Apps. Die Osmocon Anwendung wurde nicht mit eingebunden, da dessen Hauptfunktionalität, Firmware auf ein Target zu laden, nicht benötigt wird. Neben der Schnittstelle zum virtuellen \ac{Um}, bietet die virtuelle physikalische Schicht also auch die \ac{L1CTL}-Schnittstelle über ein Linux-Domain-Socket an. Der Funktionsumfang von \texttt{virtphy}, das als eigener Prozess auf dem Rechner läuft, entspricht in etwa der \texttt{layer1}-Firmware.
+
+\subsection{Die Validierung der Manipulation der Setup-Nachricht mit Testdaten}\label{hdl:coder-impl}
+
+Wegen der fehlenden Kanalkodierung und Verschlüsselung auf dem virtuellen \ac{Um} wurden das Kommandozeilenprogramm \texttt{dummycoder} und das Python Skript \texttt{xor\_hexstrings} geschrieben. Beide Programme befinden sich im osmoMITM\footnote{\url{https://github.com/BastusIII/osmo-mitm.git}} Repository.
+
+Die Kodierungsfunktionalität wurde in \texttt{coder.c} implementiert. Für die Kodierung und Dekodierung einer Nachricht auf dem  \ac{FACCH} wurden die Funktionen \texttt{facch\_encode()} und \texttt{facch\_decode()} geschrieben, für alle anderen Signalisierungskanäle \texttt{xcch\_encode()} und \texttt{xcch\_decode()}. Die Funktionen nehmen als Eingangsdaten das beliebige Ergebnis eines Zwischenschrittes der Kanalkodierung entgegen und geben die Zwischenergebnisse aller angewendeten Kodierungsfunktionen zurück. Der Grund für die Trennung von \ac{FACCH} von anderen Signalisierungskanälen liegt in den unterschiedlichen kombinierten Kodierungsverfahren (siehe \ref{hdl:encoding}). Die Kodierungsverfahren für Firecode und Faltungskodierung werden von der libosmocore Bibliothek zur Verfügung gestellt und wurden aus dieser verwendet. Die Logik für Interleaving und Burstmapping wird nicht von der Bibliothek angeboten, konnte aber aus \texttt{osmo-bts-trx} übernommen werden.
+
+Das Programm \texttt{dummycoder} liest Hexstrings aus Textdateien ein, kodiert oder dekodiert sie auf Wunsch des Anwenders und speichert das Ergebnis wieder ab. Dafür verwendet es die von \texttt{coder.c} bereitgestellten Funktionen und enthält selbst nur die Logik zum Einlesen und Formatieren der Eingangs- und Ergebnisdaten. Das Python Skript \texttt{xor\_hexstrings} ließt zwei Hexstrings ein und verknüpft diese mit der \ac{XOR}-Operation. Dadurch lässt sich die Stromverschlüsselung einer \ac{GSM}-Nachricht simulieren.
+
+Im Ordner \texttt{tests} befinden sich zwei Testfälle, in denen die beiden Programme verwendet werden, um eine Beispiel Setup-Nachricht zu kodieren und zu manipulieren. Die Ergebnisse aus \texttt{tests/encode\_decode\_test} sind in die Beispieldaten der Kanalkodierung in \ref{hdl:encoding} eingeflossen. Das Skript in \texttt{tests/setup\_manip\_test} wurde verwendet, um die Manipulation der Telefonnummer in einer Setup-Nachricht anhand von Beispieldaten zu validieren. Die Konsolenausgabe des Tests ist in \ref{hdl:a_example_setup_manip} zu finden.
+
+\subsection{Die Validierung des Angriffs mit einem Man-in-the-Middle im virtuellen Um}\label{hdl:mitm_impl}
+
+Für die praktische Nachstellung des in \ref{hdl:theroetical-attack} ausgearbeiteten Angriffs wurde ein \ac{MitM} auf dem virtuellen \ac{Um} implementiert. Der \ac{MitM} hat Zugriff auf den Uplink und Downlink des virtuellen und eines korrumpierten \ac{Um} und stellt die Verbindung zwischen beiden her. Alle \ac{MS} die sich mit dem korrumpierten virtuellen \ac{Um} verbinden, kommunizieren so über den \ac{MitM} mit dem Netzwerk und der \ac{MitM} hat Zugriff auf den kompletten Datenverkehr. Die Implementierung besteht aus einem Rahmen, der die Funktionalität der zwei virtuellen \ac{Um}-Schnittstellen anbietet, und einer Verarbeitungslogik. Die Verarbeitungslogik wird über zwei als extern deklarierte Callbackfunktionen eingebunden. Der Uplink-Callback wird bei einer eingehenden Nachricht auf dem korrumpierten Uplink aufgerufen, sein Rückgabewert an das \ac{Um} weitergeleitet. Der Downlink-Callback wird bei einer eingehenden Nachricht auf dem Downlink aufgerufen, sein Rückgabewert an das korrumpierte \ac{Um} weitergeleitet. Ein Rückgabewert von NULL bedeutet, dass die Nachricht blockiert wurde. Damit können Nachrichten von der Verarbeitungslogik verändert, verzögert oder abgefangen werden. \ref{fig:virtual-um-mitm} zeigt, wie die \ac{MitM}-Verarbeitungsroutinen im \ac{MitM}-Gerüst eingebunden sind und die Vermittlung von Nachrichten zwischen virtuellen \ac{Um} und korrumpiertem virtuellen \ac{Um}.
+
+\begin{figure}[!t]
+	\centering \includegraphics[width=2.5in]{mitm_in_virt_um_with_multicast.pdf}
+	\caption[Die MitM-Implementierung im virtuellen Um]{Die \ac{MitM}-Implementierung im virtuellen \ac{Um}, erstellt mit yEd} \label{fig:virtual-um-mitm}
+\end{figure}
+
+Das \ac{MitM}-Gerüst muss über Kommandozeilenparameter mit den \ac{IP}-Adressen von Uplink und Downlink des \ac{Um} und des korrumpierten \ac{Um} konfiguriert werden, da es die Logik für den Aufbau der virtuellen \ac{Um}-Schnittstellen enthält. Von den Verarbeitungsroutinen benötigte, zusätzliche Optionen können über einen Optionshandler definiert werden. Eine Verarbeitungsroutine muss neben dem Optionshandler nur die beiden Funktionen implementieren die empfangene Nachrichten analysieren und bearbeiten. Sie kann deshalb leicht ausgetauscht werden. Im Zuge der Masterarbeit wurden drei Verarbeitungslogiken entwickelt. \texttt{SimpleForward} leitet alle Nachrichten, ohne sie zu verändern, sobald sie eingehen, sofort weiter. \texttt{ImsiCatcher} realisiert einen \ac{IMSI}-Catcher, der eine \ac{GSM} Schwachstelle ausnutzt, um die aktuellen \acp{TMSI} der Netzteilnehmer ihren \acp{IMSI} zuzuordnen und damit ihre Identität offenlegt. \texttt{CallSetupManipulation} kombiniert die Funktionalität des \ac{IMSI}-Catchers mit der im Zuge der Masterarbeit ausgearbeiteten Identifikation und Manipulation der Setup-Nachricht (siehe \ref{hdl:theroetical-attack}), um ein ausgehendes Telefonat umzuleiten. Die einfachste Routine ist in folgendem Codebeispiel zu sehen. Das C-Struct \texttt{msgb} wird innerhalb von Osmocom verwendet, um eine Nachricht mit Nutzdaten und mehreren Headern zu definieren.\\
+
+Die Implementierung des \ac{MitM} Frameworks auf dem virtuellen \ac{Um} mitsamt den Verarbeitungsroutinen ist im osmoMITM\footnote{\url{https://github.com/BastusIII/osmo-mitm.git}} Repository hinterlegt.
+
+
+\section{Conclusion}
+Das Ergebnis dieser Arbeit ist die Entwicklung und erfolgreiche Durchführung eines praktischen \ac{MitM}-Angriffs auf \ac{GSM}. Der Vorteil gegenüber anderen aktuellen Angriffen liegt in seiner Unabhängigkeit vom verwendeten Verschlüsselungsverfahren. Da der Angriff ohne Kenntnis des kryptografischen Schlüssels auskommt, ist das Brechen der Verschlüsselung nicht notwendig. Das ermöglicht seine Ausführung in vollständig mit sicheren Algorithmen wie A5/3 oder A5/4 geschützten Verbindungen.
+
+Der Angriff wurde erfolgreich in einer Testumgebung durchgeführt und seine praktische Machbarkeit dadurch verifiziert. Für die Testumgebung wurden die Osmocom Projekte osmoBTS und osmocomBB, die die \ac{BTS} und die \ac{MS} realisieren, modifiziert und um eine virtuelle \ac{Um}-Schnittstelle erweitert. Für die Durchführung des Angriffs wurde eine \ac{MS} über eine \ac{MitM}-Implementierung  im virtuellen \ac{Um} mit der \ac{BTS} verbunden. Die \ac{MS} tätigte anschließend einen Anruf an eine bekannte Rufnummer. Die \ac{MitM}-Implementierung konnte mit der eingebauten \ac{IMSI}-Catcher Funktionalität das Opfer anhand seiner \ac{IMSI} erfolgreich identifizieren und den ausgehenden Anruf diesem zuordnen. Über die vor dem Anrufaufbau ausgetauschten, unverschlüsselten Signalisierungsnachrichten zwischen \ac{MS} und \ac{BTS} konnte die \ac{MitM}-Implementierung die für den Anrufaufbau zuständige, verschlüsselte Setup-Nachricht im Nachrichtenfluss erfolgreich identifizieren. Der letzte Schritt des durchgeführten Angriffs bestand in der Manipulation der angerufenen Nummer in der Setup-Nachricht. Ohne Kenntnis des für die Generierung des Schlüsselstroms verwendeten kryptografischen Schlüssels war es möglich, die Telefonnummer in der verschlüsselten und kodierten Setup-Nachricht zu lokalisieren und bekannte Ziffern zu manipulieren. Das Ergebnis des durchgeführten Angriffs war die erfolgreiche Umleitung eines vom Opfer ausgehenden Anrufs an eine vom Angreifer bestimmte Rufnummer.
+
+Da auf der virtuellen Funkschnittstelle \ac{GSMTAP}-Nachrichten über \ac{UDP}-Multicast-Sockets kommuniziert werden, konnte der gesamte durchgeführte Angriff von Wireshark aufgezeichnet werden (siehe \ref{lst:mitm_attack_wireshark}).
+
+Die Implementierung der virtuellen \ac{Um}-Schnittstelle wurde des Weiteren auf der OsmocDevCon2017, der Entwicklerkonferenz des Osmocom Projekts, vorgeführt und positiv aufgenommen. Aktuell liegen die Implementierungen noch in eigenen Branches des osmoBTS und osmocomBB Projekts, sollen aber als nächster Schritt in den Masterbranch integriert werden. Des Weiteren gibt es Pläne, das virtuelle \ac{Um} als Grundlage für schnelle und hardwareunabhängige Tests im relativ neuen Projekt osmoTester zu integrieren. 
+
+Der in dieser Arbeit vorgestellte, praktisch durchführbare \ac{MitM}-Angriff auf \ac{GSM} ist der erste seiner Art. Aktuelle existierende \ac{MitM}-Angriffe, die in den Datenverkehr auf der Funkschnittstelle eingreifen, basieren auf der Verwendung von schwachen Verschlüsselungsverfahren über die der kryptografische Schlüssel gewonnen und die Verschlüsselung gebrochen werden kann. Der entwickelte \ac{MitM}-Angriff hingegen basiert rein auf der Schwachstelle des fehlenden Integritätsschutzes in \ac{GSM} und kann unabhängig von verwendeten Verschlüsselungsverfahren durchgeführt werden. Wie schon bei dem von \cite{meyer2004man} veröffentlichten \ac{MitM}-Angriff schützt auch die Verwendung des gegenseitigen \ac{UMTS}-Authentifizierungsverfahrens nicht, da es für \ac{GSM} keinen Integritätsschutz bietet.
+
+Der Angriff kombiniert zwei \ac{MitM}-Angriffe. Beim ersten wird vorausgesetzt, dass die Kommunikation zwischen dem Mobiltelefon des Opfers und dem Netzwerk über ein vom Angreifer kontrolliertes Gerät auf der Funkschnittstelle läuft. Dieses Gerät kann entweder eine falsche Basisstation sein, oder rein auf physikalischer Ebene arbeiten. Ein \ac{MitM}-Gerät auf physikalischer Ebene wäre zum Beispiel ein modifizierter \ac{GSM}-Repeater. Der Angreifer kann aus der unverschlüsselten, vor dem Anrufaufbau notwendigen Kommunikation zwischen einem Netzteilnehmer und dem Netzwerk Rückschlüsse auf die Identität des Anrufers und das exakte Frame, in dem die Setup-Nachricht gesendet wird, schließen. Die Setup-Nachricht enthält Informationen über den ausgehenden Anruf, unter anderem auch die angerufene Telefonnummer. Die Setup-Nachricht ist in der Regel gleich aufgebaut, womit sich die Telefonnummer an einer dem Angreifer bekannten Position befindet. Mit den vorhandenen Informationen kann der Angreifer die Setup-Nachricht eines vom Opfer ausgehenden Anrufs eindeutig identifizieren. Die Nachricht enthält kodierte und verschlüsselte Daten, ist also ohne Kenntnis des kryptografischen Schlüssels nicht ohne weiteres lesbar. Da die verwendeten Kodierungsverfahren bekannt sind, eine Stromverschlüsselung benutzt wird und kein Integritätsschutz vorhanden ist, kann der Angreifer aber bekannte Originaltextteile beliebig ändern. Der Angriff macht sich das zu Nutze, um die angerufene Nummer zu ändern und den Anruf an ein Mobiltelefon unter Kontrolle des Angreifers weiterzuleiten. Es wird vorausgesetzt, dass die angerufene Telefonnummer oder Teile dieser vom Angreifer in Erfahrung gebracht wurde, zum Beispiel durch Social Engineering. Der Angreifer verknüpft nun den eingehenden Anruf mit einem neuen Anruf bei der ersetzten Nummer und leitet kommunizierte Gesprächsdaten zwischen diesen weiter. Das Ergebnis ist ein \ac{MitM}-Angriff mit Zugriff auf den unverschlüsselten Gesprächsverkehr zwischen zwei Opfern. Die Daten können unabhängig vom verwendeten Verschlüsselungsverfahren abgehört, aufgenommen und manipuliert werden. Zudem besteht nach dem Anrufaufbau keine Abhängigkeit mehr zum \ac{MitM}-Gerät auf der Funkschnittstelle. Ein Handover zu einer anderen \ac{BTS} unterbricht den \ac{MitM}-Angriff nicht, Opfer und Angreifer können sich frei bewegen.
+
+Der Angriff wurde in dieser Arbeit sowohl theoretisch ausgearbeitet, als auch praktisch in einer virtuellen Testumgebung durchgeführt. Im theoretischen Teil wurde zuerst der für den Anrufaufbau notwendige Nachrichtenverkehr sowie der Inhalt der Setup-Nachricht analysiert. Im Anschluss wurde die Möglichkeit, bekannte Daten in einer \ac{GSM} kodierten und stromverschlüsselten Nachricht zu manipulieren, mathematisch nachgewiesen. Für die praktische Verifikation des Angriffs wurde freie Software aus dem Osmocom Projekt verwendet. Um hardwareunabhängig testen zu können, wurden die Projekte osmoBTS (die Basisstation) und osmocomBB (das Mobilfunkgerät) um eine virtuelle Luftschnittstelle erweitert. Die physikalische Ebene der Funkschnittstelle wurde dafür durch Multicast-Sockets ersetzt, die \ac{GSMTAP} gekapselte Nachrichten austauschen. Für den \ac{MitM}-Angriff wurde eine \ac{MitM}-Implementierung für das virtuelle \ac{Um} geschrieben, die einen \ac{IMSI}-Catcher für die Identifikation des Opfers sowie Funktionalität für die Identifikation und Manipulation der kodierten, verschlüsselten Setup-Nachricht umsetzt. Der Angriff konnte damit erfolgreich durchgeführt und seine praktische Machbarkeit so verifiziert werden.
+
+Was diese Arbeit offenlässt, ist die Durchführung des kompletten vorgestellten \ac{MitM}"=Angriffs. Die Verknüpfung der Audiodaten der beiden Gesprächspartner für den \ac{MitM}-Angriff beim Mobiltelefon des Angreifers sollte aber keine große Hürde darstellen. Die Machbarkeit des \ac{MitM}-Angriffs auf der \ac{Um}-Schnittstelle wurde in einer Testumgebung nachgewiesen. Mit den Erkenntnissen aus dieser Arbeit und basierend auf den Implementierungen wäre der nächste Schritt die praktische Durchführung des Angriffs auf der realen Funkschnittstelle. Interessant wäre dabei insbesondere die Verwendung eines \ac{GSM}-Repeaters als \ac{MitM}, da die Eignung und Möglichkeiten dieser Geräte dahingehend noch nicht untersucht wurde. Auf Basis der durch Timing Advance gewonnenen Zeitspanne für die Echtzeitverarbeitung und Änderung von Daten, sollte er aber möglich sein. Zuletzt wird in dieser Arbeit vorausgesetzt, dass die Länge des Felds für die Bearer-Capability in der Setup-Nachricht bekannt ist. Eine unbekannte Länge würde ein unbekanntes Offset der Telefonnummer bedeuten und deshalb ein Problem für den Angriff darstellen. Das Feld wird für die Übermittlung von unterstützten Sprachkodierungen und weiteren, anrufbezogenen Einstellungen verwendet. Die Länge des Feldes wird im Standard als dynamisch spezifiziert, in Mitschnitten der Testumgebung wurde sie jedoch als konstant beobachtet. Wegen der Funktion des Feldes wird angenommen, dass sein Inhalt vom Telefonmodell eines Herstellers abhängt und so durch die Abfrage der \ac{IMEI} des Gerätes oder durch Social-Engineering in Erfahrung gebracht werden kann. Diese Annahme muss durch ausreichende Tests mit verschiedenen Mobilfunkgeräten noch nachgewiesen werden.
+
+Das Fazit der Arbeit ist allgemein bekannt \cite{yu2004perils}\cite{paterson2006cryptography}\cite{degabriele2007attacking}\cite{bittau2006final}: Verschlüsselung ohne Integritätsschutz gewährleistet keine Vertraulichkeit von Daten. Für \ac{GSM} bedeutet das im speziellen, dass auf der \ac{Um}-Schnittstelle übertragene Daten nicht vor Angriffen geschützt sind, auch wenn eigentlich sichere Verschlüsselungsverfahren wie A5/4 verwendet werden. \ac{GSM} bleibt solange verwundbar, bis Methoden für den Schutz der Datenintegrität spezifiziert und in den Netzwerken verwendet werden. Die Umsetzung eines praktischen, von der Verschlüsselung unabhängigen \ac{MitM}-Angriffs in dieser Arbeit verdeutlicht diese gravierende Sicherheitsschwachstelle des \ac{GSM}-Netzwerks.
+
+
+
+% conference papers do not normally have an appendix
+
+
+% use section* for acknowledgement
+\section*{Acknowledgment}
+
+
+The authors would like to thank...
+
+
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+\bibliographystyle{IEEEtranS}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{IEEEabrv,paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+%\begin{thebibliography}{1}
+%
+%\bibitem{IEEEhowto:kopka}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%
+%\end{thebibliography}
+
+
+\listoftodos
+
+% that's all folks
+\end{document}
+
+

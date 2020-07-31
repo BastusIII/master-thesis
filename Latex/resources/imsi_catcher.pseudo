@@ -1,0 +1,22 @@
+Set states = {SABM,IdRes}
+Obj{val,type} id
+Obj{id,chan} pendingIdReq
+Map idMap
+state = SABM
+
+while(msg = mitm_rec())
+	if(SABM)
+		if(msg.l2.type==SABM && (msg.l3.type==CM_SERVICE_REQ || msg.l3.type==CM_SERVICE_REQ))
+			if(!idMap.contains(msg.l3.id))
+				pendigIdReq = {id,msg.l1.chan.type}
+				if(msg.l3.id.type == imsi)
+					send(msg.l1.chan,IDENTITY_REQ(tmsi))
+				else
+					send(msg.l1.chan,IDENTITY_REQ(imsi))
+				state = idRes							
+								
+	if(IdRes)
+		if(msg.l1.chan==pendigIdReq.chan && msg.l2.type==I && msg.l3.type==IDENTITY_RES
+			idMap.add(pendingIdRe.id,msg.l3.id)
+			send(msg.l1.chan,CHANNEL_RELEASE)
+			state=SABM

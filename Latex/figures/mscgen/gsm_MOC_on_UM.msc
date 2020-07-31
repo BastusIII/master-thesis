@@ -1,0 +1,147 @@
+hscale=auto;
+numbering=no;
+defcolor lightblue="172,172,221";
+defcolor lightgreen="172,221,172";
+defcolor lightred="221,172,172";
+defcolor lightgrey="247,247,247";
+defcolor lightgray="247,247,247";
+defcolor darkgray="64,64,64";
+
+defstyle entity, blockarrow, emptybox, note
+	[shadow.offset=5, shadow.blur=3, shadow.color=darkgray];
+defstyle entity, blockarrow, emptybox, note, box
+	[fill.color=lightgrey, line.color=darkgray];
+defstyle arrow
+	[line.color=darkgray, arrow.color=darkgray, text.color=black];
+defstyle box, emptybox, note
+	[text.color=darkgray];
+defstyle box, emptybox
+	[text.format="\i\-"];
+defstyle box
+	[number="yes"];
+defstyle note
+	[text.format="\i"];
+defstyle entity
+	[fill.color=lightblue, text.format="\b"];
+
+MS [label="MS"];
+BTS [label="BTS"];
+
+..: Aufbau der Radio Resource Verbindung. {
+	MS->BTS: \-\i\[RACH\] \[RR\]\i\+ CHANNEL-REQUEST;	
+	 
+	MS<-BTS: \-\i\[AGCH\] \[RR\]\i\+ IMMEDIATE-ASSIGNMENT;
+
+	MS->BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ SABM(CM-SERVICE-REQUEST);
+	 
+	MS<-BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ UA(CM-SERVICE-REQUEST);
+};
+
+..: Abfrage der Identität des MS, optional. {
+	MS<-BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ I(N(R)=0, N(S)=0)(IDENTITY-REQUEST);
+
+	MS->BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N(R)=1);
+
+	MS->BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ I(N(R)=1, N(S)=0)(IDENTITY-RESPONSE(IMSI));
+
+	MS<-BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N(R)=1);
+};
+
+..: Authentifizierung des MS, optional. {
+	MS<-BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ I(N(R)=1, N(S)=1)(AUTHENTICATION-REQUEST);
+
+	MS->BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N(R)=2);
+
+	MS->BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ I(N(R)=2, N(S)=1)(AUTHENTICATION-RESPONSE);
+
+	MS<-BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N(R)=2);
+};
+
+newpage[auto_heading=yes];
+
+..: Einrichten der Verschlüsselung. {
+	MS<-BTS: \-\i\[SDCCH\] \[LAPDM\] \[RR\]\i\+ I(N(R)=2, N(S)=2)(CIPHERING-MODE-COMMAND);
+
+	MS->BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N(R)=3);
+
+	mark src_ul_enc [centerline=yes];
+
+	MS->BTS: \-\i\[SDCCH\] \[LAPDM\] \[RR\]\i\+ I(N(R)=3, N(S)=2)(CIPHERING-MODE-COMPLETE);
+
+	MS<-BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N(R)=3);
+
+	mark src_dl_enc [centerline=yes];
+};
+
+..: MS sagt Netzwerk, wen es anrufen möchte. Netzwerk teilt mit dass
+es versucht den Anruf aufzubauen. {
+	MS<-BTS: \-\i\[SDCCH\] \[LAPDM\] \[CC\]\i\+ I(N(R)=3, N(S)=3)(SETUP);
+
+	MS->BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N(R)=4);
+
+	MS->BTS: \-\i\[SDCCH\] \[LAPDM\] \[CC\]\i\+ I(N(R)=4, N(S)=3)(CALL-PROCEEDING);
+
+	MS<-BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N(R)=4);
+};
+
+..: Zuweisung eines TCH vom Netzwerk und Wechsel des MS auf diesen. 
+Hier Early Assignment, da Zuweisung vor Durchstellung des Anrufs
+erfolgt. {
+	MS<-BTS: \-\i\[SDCCH\] \[LAPDM\] \[RR\]\i\+ I(N(R)=4, N(S)=4)(ASSIGNMENT-COMMAND);
+
+	MS->BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N(R)=5);
+
+	MS->BTS: \-\i\[FACCH\] \[LAPDM\]\i\+ SABM;
+
+	note: Erneute Einrichtung der
+	zuverlässigen LAPDm Verbindung
+	auf TCH notwendig.;
+
+	MS->BTS: \-\i\[FACCH\] \[LAPDM\]\i\+ UA;
+
+	MS->BTS: \-\i\[FACCH\] \[LAPDM\] \[RR\]\i\+ I(N(R)=0, N(S)=0)(ASSIGNMENT-COMPLETE);
+
+	MS<-BTS: \-\i\[FACCH\] \[LAPDM\]\i\+ RR(N(R)=1);
+};
+
+mark dst_mid;
+newpage[auto_heading=yes];
+
+..: Benachrichtigung(en) über aktuellen Bearbeitungsstand des 
+Anrufs. {
+
+	MS<-BTS: \-\i\[FACCH\] \[LAPDM\] \[RR\]\i\+ I(N(R)=1, N(S)=0)(PROGRESS);
+
+	MS->BTS: \-\i\[FACCH\] \[LAPDM\]\i\+ RR(N(R)=1);
+};
+
+..: Benachrichtigung vom Netzwerk, dass der Anruf durchgestellt wurde.
+Das angerufene MS klingelt jetzt. {
+
+	MS<-BTS: \-\i\[FACCH\] \[LAPDM\] \[RR\]\i\+ I(N(R)=1, N(S)=1)(ALERTING);
+
+	MS->BTS: \-\i\[FACCH\] \[LAPDM\]\i\+ RR(N(R)=2);
+};
+
+..: Nachricht an das MS über erfolgreich aufgebaute Telefonverbinung. {
+
+	MS<-BTS: \-\i\[FACCH\] \[LAPDM\] \[RR\]\i\+ I(N(R)=1, N(S)=2)(CONNECT);
+
+	MS->BTS: \-\i\[FACCH\] \[LAPDM\]\i\+ RR(N(R)=3);
+
+	MS->BTS: \-\i\[FACCH\] \[LAPDM\] \[RR\]\i\+ I(N(R)=3, N(S)=1)(CONNECT-ACKNOWLEDGE);
+
+	MS<-BTS: \-\i\[FACCH\] \[LAPDM\]\i\+ RR(N(R)=2);
+};
+
+[]:;
+
+block MS<->BTS: \-\i\[TCH\]\i\+ Gesprächsdaten;
+
+mark dst_end;
+
+vertical range src_ul_enc->dst_mid at MS-:Uplink verschlüsselt;
+vertical range dst_mid->dst_end at MS-:Uplink verschlüsselt;
+vertical range src_dl_enc->dst_mid at BTS+:Downlink verschlüsselt;
+vertical range dst_mid->dst_end at BTS+:Downlink verschlüsselt;
+

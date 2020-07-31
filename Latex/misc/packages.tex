@@ -1,0 +1,63 @@
+%%% Im folgenden Abschnitt können packages eingebunden werden. Packages erweitern Latex um Zusätzliche Befehle und oder passen an wie etwas dargestellt wird. %%%
+\usepackage[T1]{fontenc}% Fontkodierung auf das neuere T1 umschalten, behebt umlautfehler beim kopieren aus generierter pdf
+\usepackage{lmodern} % needed for scalable fonts
+\usepackage[utf8]{inputenc} % Der Latex Code wird in utf8 kodiert. Das ist eine verbreitete Norm die praktisch alle Buchstaben und Sonderzeichen enthält.
+\usepackage{microtype}
+\usepackage{a4} % Setzt das Format des Dokuments auf DinA4
+\usepackage{hyphenat} % Verwaltet Wörter, die nicht richtig getrennt werden und einen Zeilenüberlauf generieren würden.
+\usepackage[hyphens]{url} % erlaubt mehr Umbrüche in urls, sehr wichtig für style des Literaturverzeichnisses
+\usepackage[ngerman]{babel} % passt bestimmte Ausgaben wie z.B. Datum an die jeweilige Sprache an.
+%\usepackage{parskip} % keine automatischer abstand nach paragrafen, use option parskip for KOMA Script classes
+%\usepackage{umlaute} % umlaute werden richtig gerendert
+\usepackage{adjustbox} % resizing stuff
+\usepackage{graphicx} % ermöglicht einbinden von Bildern
+\usepackage{setspace} % damit kann man den Zeilenabstand ändern (einfach, eineinhalbfach, doppelt)
+%\usepackage{titlesec} % ermöglicht anpassen vom style der chapters, section und subsections
+\usepackage{tabularx} % braucht man um Tabellen zu erstellen
+\usepackage{wrapfig} % Formatiert Fießtext um Inline Bilder
+\usepackage{floatflt} % Ermöglicht Inline Bilder und Tabellen
+\usepackage[format=default,font=footnotesize,labelfont=bf]{caption} % Kümmert sich um Darstellung von Bildüberschriften
+\usepackage{listings}
+\usepackage{color} % Bindet verschiedene Schriftfarben ein.
+\usepackage[pdftex,dvipsnames,table,xcdraw]{xcolor}  % Noch mehr Farben.
+\usepackage{float} % Man kann für Fließbilder und Tabellen verschiedene Stylings auswählen.
+
+\definecolor{CiteColor}{rgb}{0,0,0.6}
+\definecolor{LinkColor}{rgb}{0.6,0,0}
+\usepackage[
+    bookmarks,
+    bookmarksopen=true,
+    colorlinks=true,
+    linkcolor=LinkColor, 
+    citecolor=CiteColor, 
+    %linkcolor=black,
+    %citecolor=black,
+    menucolor=red, 
+    anchorcolor=black,
+    urlcolor=black,
+    filecolor=black,
+    backref,
+    plainpages=false, 
+    pdfpagelabels,
+    hypertexnames=false, 
+    linktocpage=true
+    ]{hyperref}
+   % ermöglicht komfortable Referenzierung im Dokument (autoref)
+\usepackage[printonlyused]{acronym} % Funktionen und Befehle für Abkürzungsverzeichnis
+\usepackage[sort&compress,square,comma,authoryear]{natbib}
+\usepackage{bibtopic} % erstellt Literaturverzeichnis
+% bibtopic needs a special compilation. use pdflatex -synctex=1 -interaction=nonstopmode %.tex|bibtex %1.aux|bibtex %2.aux|bibtex %3.aux|pdflatex -synctex=1 -interaction=nonstopmode %.tex|pdflatex -synctex=1 -interaction=nonstopmode %.tex in fast translation when in TexMaker
+%\usepackage{bpchem}
+\usepackage{textcomp}
+\usepackage{pdflscape}
+\usepackage[colorinlistoftodos,prependcaption]{todonotes}
+\usepackage{xargs}   % Use more than one optional parameter in a new commands
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{fancyvrb} % style verbatims
+\usepackage{amssymb}
+\usepackage{nicefrac} % schöne Brüche im Textfluss
+\usepackage{rotating}
+
+
+

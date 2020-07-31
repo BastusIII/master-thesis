@@ -1,0 +1,279 @@
+\chapter{Umsetzung -- Anhang}
+In diesem Kapitel werden verschiedene Anhänge mit Bezug zur theoretischen oder praktischen Umsetzung aufgelistet.
+
+\section{Einrichtung des Testnetzwerks mit virtueller Um-Schnittstelle}\label{hdl:a_einrichtung_testumgebung}
+
+In diesem Abschnitt wird die Einrichtung und Konfiguration des Testnetzwerks, in dem der \ac{MitM}-Angriff durchgeführt wurde, erklärt.
+
+Die Testumgebung wurde in der Masterarbeit auf Linux-Debian Jessie eingerichtet. Folgende Osmocom-Bibliotheken müssen entweder über Github, Autoconf und Automake selbst kompiliert und installiert oder über verfügbare Nigthly-Builds des Paketmanagers installiert werden.
+\begin{itemize}
+\item libosmocore -- \url{git://git.osmocom.org/libosmocore.git}, Branch: master
+\item libosmo-abis -- \url{git://git.osmocom.org/libosmo-abis.git}, Branch: master
+\item libosmo-netif -- \url{git://git.osmocom.org/libosmo-netif.git}, Branch: master
+\end{itemize}
+Folgende Projekte müssen über Github, Autoconf und Automake selbst kompiliert werden:
+\begin{itemize}
+\item osmoBSC -- \url{git://git.osmocom.org/openbsc.git}, Branch: master
+\item osmoBTS -- \url{git://git.osmocom.org/osmo-bts}, Branch: stumpf/virt-phy
+\item osmocomBB -- \url{git://git.osmocom.org/osmocom-bb}, Branch: stumpf/virt-phy
+\item osmoMITM -- \url{https://github.com/BastusIII/osmo-mitm}, Branch: master
+\end{itemize}
+Beim Kompilieren und der Installation obiger Komponenten und ihrer Abhängigkeiten kann man sich an folgenden Anleitungen im Osmocom Wiki orientieren:
+\begin{itemize}
+\item \url{osmocom.org/projects/cellular-infrastructure/wiki/SDR_OsmoTRX_network_from_scratch}
+\item \url{osmocom.org/projects/openbsc/wiki/Building_OpenBSC}
+\item \url{osmocom.org/projects/cellular-infrastructure/wiki/Build_from_source}
+\end{itemize}
+
+Sind die Bibliotheken installiert und konnten die Projekte erfolgreich kompiliert werden, geht es an die Konfiguration. 
+
+Aus dem osmoBSC Projekt wird die osmoNITB Anwendung benötigt. Für die Verwendung von osmoNITB mit dem virtuellen \ac{Um} ist keine spezielle Konfiguration notwendig, es kann also die Standardkonfiguration benutzt werden. Es empfiehlt sich aber folgende Parameter anzupassen:\\
+
+\begin{lstlisting}[boxpos=c, frame=single, language=bytetxt, numbers=none, basicstyle=\tiny\ttfamily, tabsize=1 ]
+network
+ auth policy accept-all !!accept all subscribers!!
+ authorized-regexp .* !!wildcard needs to be set to really accept all subscribers!!
+ encryption a5 0 !!don't use encryption, as its currently not supported by virtual Um!!
+ (...)
+ bts 0
+  type sysmobts !!declaring the type as sysmobts will work with the virtual bts!!
+  (...)
+  trx 0 
+   (...)
+   timeslot 0 
+    phys_chan_config CCCH+SDCCH4 
+    hopping enabled 0 !!hopping should be disabled for all timeslots, not only for this one!!
+    (...)
+nitb
+ subscriber-create-on-demand !!create subscribers in hlr automatically!!
+ subscriber-create-on-demand random 1 24
+ assign-tmsi !!activates tmsi assignment and reallocation!!
+\end{lstlisting}
+
+Aus osmoBTS wird die Anwendung für die virtuelle \ac{BTS} benötigt. Eine Beispielkonfigurationsdatei ist im Projektordner unter \texttt{src/osmo-bts-virtual/example\_configs} zu finden. Für die Kommunikation mit dem \ac{BSC} über die Abis-Schnittstelle muss die \texttt{ipa unit-id} mit dem gleichen Wert wie in osmoNITB konfiguriert sein. Informationen dazu finden sich auch in den oben referenzierten Wiki-Links. Für das virtuelle \ac{Um} müssen folgende Einträge konfiguriert werden, der Rest ist Standard.\\
+
+\begin{lstlisting}[boxpos=c, frame=single, language=bytetxt, numbers=none, basicstyle=\tiny\ttfamily, tabsize=1 ]
+(...)
+phy 0
+ virtual-um ms-multicast-group 224.0.0.1 !!the multicast ip address, the bts will send to!!
+ virtual-um ms-udp-port 4729 !!4729 will be recognized by Wireshark as GSMTAP!!
+ virtual-um bts-multicast-group 225.0.0.1 !!the multicast ip address, the bts will receive from!!
+ virtual-um bts-udp-port 4729
+(...)
+\end{lstlisting}
+
+Aus osmocomBB wird die Anwendung für die physikalische Schicht des \ac{Um} \texttt{virtphy} und die L23-App \texttt{mobile} benötigt. \texttt{virtphy} wird über Kommandozeilenparameter erst beim Aufruf des Programms konfiguriert. Für \texttt{mobile} findet sich eine Beispielkonfigurationsdatei im Projektordner in \texttt{src/host/virt\_phy/example\_configs}. Wichtig ist die Aktivierung der \texttt{test-sim} Option, da die Implementierung der virtuellen physikalischen Schicht den Zugriff auf die \ac{SIM}-\ac{APDU} nicht über das \ac{L1CTL}-Socket anbietet.\\
+
+\begin{lstlisting}[boxpos=c, frame=single, language=bytetxt, numbers=none, basicstyle=\tiny\ttfamily, tabsize=1 ]
+ms 1
+ layer2-socket /tmp/osmocom_l2 !!the path to the L1CTL socket used!!
+ sim test !!define that the test-sim should be used!!
+(...)
+test-sim
+ imsi 901700000000403 !!can be chosen as wished!!
+ ki comp128 12 34 56 78 90 1b cd ef 12 34 56 78 90 ab cd ef !!can be chosen as wished!!
+ no barred-access
+ rplmn 262 42 0x0001 !!can be used to set the preferred network to avoid the long network search at startup!!
+ hplmn-search everywhere
+exit
+(...)
+\end{lstlisting}
+
+Der \ac{MitM} im virtuellen \ac{Um} aus osmoMITM wird ebenfalls über Kommandozeilenparameter gestartet.
+
+Nach der Konfiguration müssen die Anwendungen in folgender Reihenfolge und mit folgenden Kommandozeilenparametern gestartet werden. Es wird angenommen die Projekte befinden sich alle im Ordner \texttt{\textasciitilde/Osmocom} im Home-Verzeichnis des Benutzers und die angepassten Konfigurationsdateien sowie die SQLite-Datenbank für das \ac{HLR} von osmoNITB in \texttt{\textasciitilde/Osmocom/config}.\\
+
+\begin{lstlisting}[boxpos=c, frame=single, language=bytetxt, numbers=none, basicstyle=\footnotesize\ttfamily, tabsize=1 ]
+NITB: 
+~/Osmocom/openbsc/src/osmo-nitb/osmo-nitb 
+  -c ~/Osmocom/config-files/openbsc-virtual.cfg
+  -l ~/Osmocom/config-files/hlr.sqlite3 
+  -P -C
+      
+BTS: 
+~/Osmocom/osmo-bts/src/osmo-bts-virtual/osmo-bts-virtual 
+  -c ~/Osmocom/config-files/osmobts-virtual.cfg    
+      
+MS layer1: 
+~/Osmocom/osmocom-bb/src/host/virt\_phy/src/virtphy 
+  --l1ctl-sock /tmp/osmocom\_l2 
+  --port 4729 
+  --ul-tx-grp 226.0.0.1 
+  --dl-rx-grp 226.0.0.2
+
+MS L23-App mobile: 
+~/Osmocom/osmocom-bb/src/host/layer23/src/mobile/mobile 
+  -c ~/Osmocom/config-files/osmocom-bb-mobile-virtual-ms1.cfg
+
+MITM:
+~/Osmocom/osmo-mitm/src/osmomitmsetupmanip 
+  --ul-rx-grp 226.0.0.1 
+  --dl-tx-grp 226.0.0.2 
+  --ul-tx-grp 225.0.0.1 
+  --dl-rx-grp 224.0.0.1 
+  --dump-msgs 
+  --imsi-victim 901700000000403 
+  --msisdn-called 017518181818 
+  --msisdn-attacker 017517171717 
+  --msisdn-to-setup-offset 11
+\end{lstlisting}
+
+Wenn alle Anwendungen korrekt gestartet wurden, kann über Wireshark der Nachrichtenverkehr auf dem virtuellen \ac{Um} aufgezeichnet werden. Es bietet sich an, die Nachrichten dazu nach \texttt{gsmtap} oder \texttt{lapdm} zu filtern.
+
+Die Konfigurationen von \texttt{nitb}, \texttt{bts} und \texttt{mobile} können nach dem Start über deren \ac{VTY}-Schnittstelle eingesehen und angepasst werden. Das \ac{VTY} von \texttt{mobile} wird des Weiteren verwendet, um den Anruf vom Opfer aus zu starten. Ist der \ac{MitM} wie oben konfiguriert, dann leitet er ausgehende Anrufe der \ac{IMSI} \texttt{901700000000403} an die \ac{MSISDN} \texttt{017518181818} zur \ac{MSISDN} \texttt{017517171717} um. Der Anruf vom Opfer, bzw. \texttt{mobile} sollte also an die Telefonnummer \texttt{017518181818} erfolgen. Auf das \ac{VTY} von \texttt{mobile} kann, sofern dessen Port nicht verändert wurde, mit telnet zugegriffen werden (\texttt{telnet localhost 4247}). Mit dem \ac{VTY}-Befehl \texttt{call 1 017518181818} kann der Anruf gestartet werden.
+
+\section{L1CTL-Routinen in osmocomBB}\label{hdl:a_l1ctl-routines}
+
+\begin{table}[H]
+\begin{adjustbox}{max width={0.8\textwidth}, padding=4pt 2pt 4pt 0pt, center}
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+\hline
+\rowcolor[HTML]{F7F7F7}
+\textbf{L1CTL Routine}                  & \textbf{Beschreibung}                                                                     & \textbf{Status}                                                                                             \\ \hline
+\texttt{L1CTL\_FBSB\_REQ/CONF}                   & Cumulated request to sync frequency to a given ARFCN and then start time synchronization. & Implemented                                                                                                 \\ \hline
+\texttt{L1CTL\_DATA\_IND/REQ/CONF}               & Transmit / receive data on one of the signaling channels FACCH, SDCCH, SACCH.             & Implemented                                                                                                 \\ \hline
+\texttt{L1CTL\_RACH\_REQ/CONF}                   & Transmit data on RACH.                                                                    & Implemented                                                                                                 \\ \hline
+\texttt{L1CTL\_TRAFFIC\_REQ/CONF/IND}            & Transmit traffic on a TCH/F or TCH/R.                                                     & Implemented                                                                                                 \\ \hline
+\texttt{L1CTL\_PM\_REQ/CONF}                     & Start power measurement on given frequencies.                                             & Implemented                                                                                                 \\ \hline
+\texttt{L1CTL\_NEIGH\_PM\_REQ/IND}               & Start neighbor power measurement.                                                         & Not implemented Currently not used as handover is not yet implemented                                       \\ \hline
+\texttt{L1CTL\_TCH\_MODE\_REQ/CONF}              & Configure TCH mode and audio mode.                                                        & Status: Implemented but unused, as we do not support speech recording and transmission yet.                 \\ \hline
+\texttt{L1CTL\_CCCH\_MODE\_REQ/CONF}             & Configure CCCH combined / non-combined mode.                                              & Implemented                                                                                                 \\ \hline
+\texttt{L1CTL\_RESET\_IND/REQ/CONF}              & Request or indicate a layer 1 full reset or scheduler reset.                              & Implemented, used to tell L23 that physical layer has started up e.g.                                       \\ \hline
+\texttt{L1CTL\_ECHO\_REQ/CONF}                   & Print something out on the display.                                                       & Not implemented, but also not needed for the virtual physical layer.                                        \\ \hline
+\texttt{L1CTL\_SIM\_REQ/CONF}                    & Forward a command to the SIM card.                                                        & Not implemented SIM cards are currently not supported. We use the mobile's test-sim option to simulate one. \\ \hline
+\texttt{L1CTL\_DM\_EST\_REQ/L1CTL\_DM\_REL\_REQ} & Handle state chance from idle to dedicated mode and vice-versa.                           & Implemented                                                                                                 \\ \hline
+\texttt{L1CTL\_DM\_FREQ\_REQ}                    & Handle frequency change for a dedicated channel.                                          & Not implemented, as frequency hopping is not yet supported.                                                 \\ \hline
+\texttt{L1CTL\_PARAM\_REQ}                       & Change timing advance value and / or sending power.                                       & Not implemented, but also not needed for the virtual physical layer.                                        \\ \hline
+\texttt{L1CTL\_CRYPTO\_REQ}                      & Configure the key and algorithm used for cryptographic operations.                        & Not implemented, as encryption is not yet supported.                                                        \\ \hline
+\end{tabular}
+\end{adjustbox}\caption[L1CTL-Routinen und deren Implementierungsstand in osmocomBB]{\ac{L1CTL}-Routinen und deren Implementierungsstand in osmocomBB}\label{hdl:a_l1ctl_routines}
+\end{table}
+
+\section{Manipulation von Beispieldaten mit \texttt{dummycoder} und \texttt{xor\_hexstrings.py}}\label{hdl:a_example_setup_manip}
+
+Die Ausgabe wurde von Hand formatiert und farblich gekennzeichnet und wird nicht so von der Testroutine generiert. Die Datenmanipulation und ihre Auswirkung auf die Kodierungsschritte ist rot gekennzeichnet, Kommentare sind blau dargestellt. Die Testroutine kann mit beliebigen Daten ausgeführt werden und liegt im osmoMITM Projekt im Ordner \texttt{tests/setup\_manip\_test}. Das Skript \texttt{setup\_manip\_exec.sh} ruft die Programme \texttt{dummycoder} und \texttt{xor\_hexstrings.py} mehrmals auf, um die Ausgabe zu generieren. Dort müssen die Dateien \texttt{data}, \texttt{data\_manip}, \texttt{cipherstream} und \texttt{remainder} liegen und mit Daten in Form von Hexstrings befüllt sein. Alle Ergebnisse werden im Ordner \texttt{tests/setup\_manip\_test/test\_data} auch als Textdateien abgespeichert.\\
+
+\begin{lstlisting}[caption={Die Kommandozeilenausgabe von \texttt{setup\_manip\_test} aus osmoMITM}, boxpos=c, frame=single, language=bytetxt, numbers=none, basicstyle=\tiny\ttfamily, tabsize=1 ]
+!!Hinweise:!!
+!!data:             Originalnachricht als Plaintext!!
+!!data_manip:       Manipulierte Nachricht als Plaintext!!
+!!remainder:        Rest des Firecodes in GSM!!
+!!cipherstream:     Schlüsselstrom !!
+!!.crc:             Daten nach Anwendung von Firecode!!
+!!.cc:              Daten nach Anwendung von Convolutional Coding!!
+!!XORcipherstream:  Stromverschlüsselung!!
+
+01 20 51 03 45 04 04 60  02 00 81 5e 07 81 10 57
+81 81 81 81 15 01 01                             !!= data!!
+
+01 20 51 03 45 04 04 60  02 00 81 5e 07 81 10 57 
+@1@1 81 81 81 15 01 01                             !!= data_manip!!
+
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+@9@0 00 00 00 00 00 00                             !!= dataXORdata_manip!!
+
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+@9@0 00 00 00 00 00 00 2f  93 7e 5f 2f 00          !!= dataXORdata_manip.crc!!
+
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 ff  ff ff ff ff 00          !!= remainder!!
+
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+@9@0 00 00 00 00 00 00 d0  6c 81 a0 d0 00          !!= dataXORdata_manip.crcXORremainder!!
+
+01 20 51 03 45 04 04 60  02 00 81 5e 07 81 10 57 
+81 81 81 81 15 01 01 f8  b8 1c ef e5 00          !!= data.crc!!
+
+01 20 51 03 45 04 04 60  02 00 81 5e 07 81 10 57 
+@1@1 81 81 81 15 01 01 28  d4 9d 4f 35 00          !!= dataXORdata_manip.crcXORremainderXORdata.crc!!
+
+01 20 51 03 45 04 04 60  02 00 81 5e 07 81 10 57 
+@1@1 81 81 81 15 01 01 28  d4 9d 4f 35 00          !!= data_manip.crc!!
+
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00          !!= dataXORdata_manip.crcXORremainderXORdata.crcXORdata_manip.crc!!
+
+!!TEST1 - CHECK == 0 OK!!
+
+00 03 42 3c 37 bc 4f 0e  47 c7 bf 34 f0 34 c9 cc 
+00 0d 3c 00 d3 c3 78 55  0c 3a 50 c3 4c 4f 37 85 
+@80 4c@ 9c c3 9c c3 9c c3  4c 78 bf 03 4f 03 @42 ef@ 
+@24 4b 20 6b 4b 19 4d 44@  bf                      !!= [dataXORdata_manip.crcXORremainderXORdata.crc].cc!!
+
+00 03 42 3c 37 bc 4f 0e  47 c7 bf 34 f0 34 c9 cc 
+00 0d 3c 00 d3 c3 78 55  0c 3a 50 c3 4c 4f 37 85 
+50 c3 9c c3 9c c3 9c c3  4c 78 bf 03 4f 03 a6 90
+1d 60 c3 a8 da e5 a9 3b  bf                       !!= data.cc!!
+
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00                       !!= [dataXORdata_manip.crcXORremainderXORdata.crc].ccXORdata_manip.cc!!
+
+!!TEST2 - CHECK == 0 OK!!
+
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+@d0 8f@ 00 00 00 00 00 00  00 00 00 00 00 00 @0d d5@ 
+@93 81 49 69 3b 56 4e d5@  43                       !!= [dataXORdata_manip].cc!!
+
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 e9 aa 
+aa aa aa aa aa aa aa aa  43                       !!= remainder.cc!!
+
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+@d0 8f@ 00 00 00 00 00 00  00 00 00 00 00 00 @e4 7f@ 
+@39 2b e3 c3 91 fc e4 7f@  00                       !!= [dataXORdata_manip].ccXORremainder.cc!!
+
+00 03 42 3c 37 bc 4f 0e  47 c7 bf 34 f0 34 c9 cc 
+00 0d 3c 00 d3 c3 78 55  0c 3a 50 c3 4c 4f 37 85 
+@80 4c@ 9c c3 9c c3 9c c3  4c 78 bf 03 4f 03 @42 ef@ 
+@24 4b 20 6b 4b 19 4d 44@  bf                       !!= [dataXORdata_manip].ccXORremainder.ccXORdata.cc!!
+
+00 03 42 3c 37 bc 4f 0e  47 c7 bf 34 f0 34 c9 cc 
+00 0d 3c 00 d3 c3 78 55  0c 3a 50 c3 4c 4f 37 85 
+@80 4c@ 9c c3 9c c3 9c c3  4c 78 bf 03 4f 03 @42 ef@ 
+@24 4b 20 6b 4b 19 4d 44@  bf                       !!= data_manip.cc!!
+
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00                       !!= [dataXORdata_manip].ccXORremainder.ccXORdata.ccXORdata_manip.cc!!
+
+!!TEST3 - CHECK == 0 OK!!
+
+12 34 56 78 90 ab cd ef  12 34 56 78 90 ab cd ef 
+12 34 56 78 90 ab cd ef  12 34 56 78 90 ab cd ef 
+12 34 56 78 90 ab cd ef  12 34 56 78 90 ab cd ef 
+12 34 56 78 90 ab cd ef  11                       !!= cipherstream!!
+
+12 37 14 44 a7 17 82 e1  55 f3 e9 4c 60 9f 04 23 
+12 39 6a 78 43 68 b5 ba  1e 0e 06 bb dc e4 fa 6a 
+42 f7 ca bb 0c 68 51 2c  5e 4c e9 7b df a8 6b 7f 
+0f 54 95 d0 4a 4e 64 d4  ae                       !!= data.ccXORcipherstream!!
+
+12 37 14 44 a7 17 82 e1  55 f3 e9 4c 60 9f 04 23 
+12 39 6a 78 43 68 b5 ba  1e 0e 06 bb dc e4 fa 6a 
+@92 78@ ca bb 0c 68 51 2c  5e 4c e9 7b df a8 @8f 00@ 
+@36 7f 76 13 db b2 80 ab@  ae                       !!= data_manip.ccXORcipherstream!!
+
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+@d0 8f@ 00 00 00 00 00 00  00 00 00 00 00 00 @e4 7f@ 
+@39 2b e3 c3 91 fc e4 7f@  00                       !!= [dataXORdata_manip].ccXORremainder.cc!!
+
+12 37 14 44 a7 17 82 e1  55 f3 e9 4c 60 9f 04 23 
+12 39 6a 78 43 68 b5 ba  1e 0e 06 bb dc e4 fa 6a 
+@92 78@ ca bb 0c 68 51 2c  5e 4c e9 7b df a8 @8f 00@ 
+@36 7f 76 13 db b2 80 ab@  ae                       !!= [dataXORdata_manip].ccXORremainder.ccXORdata.ccXORcipherstream!!
+
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00  00                       !!= [dataXORdata_manip].ccXORremainder.ccXORdata.ccXORcipherstreamXOR!!
+                                                    !!data_manip.ccXORcipherstream!!
+
+!!TEST4 - CHECK == 0 OK!!
+\end{lstlisting}

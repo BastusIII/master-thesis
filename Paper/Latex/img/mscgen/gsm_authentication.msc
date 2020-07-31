@@ -1,0 +1,46 @@
+hscale=auto;
+numbering=no;
+defcolor lightblue="172,172,221";
+defcolor lightgreen="172,221,172";
+defcolor lightred="221,172,172";
+defcolor lightgrey="247,247,247";
+SIM [label="SIM",fill.color=lightblue],
+MS [label="MS",fill.color=lightblue],
+MoSC [label="MSC",fill.color=lightgreen],
+HLR [label="HLR",fill.color=lightgreen];
+[]:;
+MS--MoSC: \bRR Establishment \[L3-SERVICE-REQ\]
+[number="no",color=lightgrey]
+{
+[]:;
+};
+SIM--HLR: \bAuthentication
+[number="no",color=lightgrey]
+{
+MoSC->HLR:	Authentication-Information-Request(IMSI)
+		\iMAP
+[number="yes"];
+HLR--HLR:	Berechnung von: 
+		- erwarteter SRES = A3(RAND,Ki)
+		- Session Key Ks = A8(RAND,Ki)
+		aus dem Zufallswert RAND und 
+		dem geheimen Schlüssel des 
+		Teilnehmers Ki.;
+[]:;
+MoSC<-HLR:	Authentication-Information-Answer(RAND,SRES,Ks)
+		\iMAP
+[number="yes"];
+MS<-MoSC: 	AUTHENTICATION-REQUEST(RAND)
+		\iMM
+[number="yes"];
+block SIM<->MS:	SIM berechnet: 
+		- RES = A3(RAND,Ki)
+		- Ks = A8(RAND,Ki)
+		aus der erhaltenen Challenge
+		RAND und Ki.;
+MS->MoSC: 	AUTHENTICATION-RESPONSE(RES)
+		\iMM
+[number="yes"];
+MoSC--MoSC:	RES == SRES ? 
+		=> Authentifizierung erfolgreich.;
+};

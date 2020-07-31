@@ -1,0 +1,141 @@
+%%% Hier werden neue Commands erstellt. %%%
+
+\newcommand{\bildklein}[3]{  
+	\begin{figure}[hp]
+	\begin{center}
+	\includegraphics[width=0.5\textwidth]{#1}
+	\end{center}
+	\caption[#2]{#3}
+	\end{figure}
+}
+  	
+\newcommand{\bildgross}[3]{  
+	\begin{figure}[hp]
+	\begin{center}
+	\includegraphics[width=0.95\textwidth]{#1}
+	\end{center}
+	\caption[#2]{#3}
+	\end{figure}
+}
+
+% binary division in math mode
+\makeatletter
+\newcommand*{\bdiv}{%
+  \nonscript\mskip-\medmuskip\mkern5mu%
+  \mathbin{\operator@font div}\penalty900\mkern5mu%
+  \nonscript\mskip-\medmuskip
+}
+\makeatother
+
+% Updated definition, see explanation below
+\newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1} - \nameref*{#1}}} % One single link
+
+% New commands for todonotes package
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[nolist,linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+
+\newcommandx{\citepauthor}[2][1=]{[\citeauthor[#1]{#2}]}
+\newcommandx{\citetauthor}[2][1=]{\citeauthor[#1]{#2}}
+
+% Labels for items in (nested) itemize (uses bullets/characters)
+\renewcommand\labelitemi{\normalfont\bfseries \textendash}% bullet
+\renewcommand\labelitemii{\normalfont\bfseries \textendash}% --
+\renewcommand\labelitemiii{\normalfont\bfseries \textendash}% *
+\renewcommand\labelitemiv{\normalfont\bfseries \textendash}% .
+
+% Put somethin above a sign in math mode
+\newcommandx{\aoverb}[2]{\mathrel{\stackrel{\makebox[0pt]{\mbox{\normalfont\tiny \textbf{#1}}}}{#2}}}
+
+% make nested parenthesis grow
+%\delimitershortfall=-1pt
+\let\Right\right
+\let\Left\left
+\makeatletter
+\def\right#1{\Right#1\@ifnextchar){\!\right}{}}
+\def\left#1{\Left#1\@ifnextchar({\!\left}{}}
+\makeatother
+
+% my listing style and own language definitions
+
+\renewcommand{\lstlistingname}{Codebeispiel}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  columns=fullflexible,
+  keepspaces=true,
+  numbers=left,           % where to put the line-numbers
+  inputencoding={utf8},
+  captionpos=b,   
+  literate=%
+    {Ö}{{\"O}}1
+    {Ä}{{\"A}}1
+    {Ü}{{\"U}}1
+    {ß}{{\ss}}1
+    {ü}{{\"u}}1
+    {ä}{{\"a}}1
+    {ö}{{\"o}}1
+    {~}{{\textasciitilde}}1
+}
+
+% Define Language
+\lstdefinelanguage{bytetxt}
+{
+  moredelim=**[is][\color{red}]{@}{@},
+  moredelim=**[is][\color{blue}]{!!}{!!},
+}
+
+\definecolor{eclipsecgreencomment}{RGB}{63,127,95} % eclipsedoc
+\definecolor{eclipsecgreentypes}{RGB}{0,80,50} % eclipsedoc
+\definecolor{eclipsecpurplekey}{RGB}{127,0,85} % eclipsedoc
+\definecolor{eclipsecblueattrandstr}{RGB}{0,0,192} % eclipsedoc
+\definecolor{eclipsecblueemph}{RGB}{206,204,247} % eclipsedoc
+\definecolor{eclipsecgrey}{RGB}{128,128,128} % eclipsedoc
+
+\lstdefinestyle{CStyle}{
+	language=C,
+	morekeywords={__attribute__, msgb_data, msgb_put},
+	keywordstyle=\color{eclipsecpurplekey}\bfseries, % keywords
+	stringstyle=\color{eclipsecblueattrandstr}, % strings
+	commentstyle=\color{eclipsecgreencomment}, % comments
+	morecomment=[s][\color{eclipsecblueattrandstr}]{<}{>},
+	emph=[0]{%
+		uint8_t,uint16_t,uint32_t,
+		int8_t,int16_t,int32_t,
+		gsmtap_hdr,msgb,
+	},
+	emph=[1]{%
+		version,
+		hdr_len,
+		type,
+		timeslot,
+		arfcn,
+		signal_dbm,
+		snr_db,
+		frame_number,
+		sub_type,
+		antenna_nr,
+		sub_slot,
+		res,
+		PLAIN,
+		BURSTMAP_XCCH,
+		l2h,l1h,
+		STATE_IMSI_CATCHER_SABM,
+	},
+	emphstyle=[0]{\color{eclipsecgreentypes}}, % own types
+	emphstyle=[1]{\color{eclipsecblueattrandstr}}, % attributes
+	emphstyle=[2]{\color{eclipsecblueemph}}, % other emphasized keywords like TODO
+	breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+   	numberstyle=\tiny\color{black},
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+}

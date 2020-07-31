@@ -1,0 +1,56 @@
+hscale=auto;
+numbering=no;
+defcolor lightblue="172,172,221";
+defcolor lightgreen="172,221,172";
+defcolor lightred="221,172,172";
+defcolor lightgrey="247,247,247";
+MS [label="MS",fill.color=lightblue],
+BTS [label="BTS",fill.color=lightgreen],
+BSC [label="BSC",fill.color=lightgreen],
+MoSC [label="MSC",fill.color=lightgreen];
+[]:;
+MS--MoSC: \bRR Establishment \[L3-SERVICE-REQ\]
+[number="no",color=lightgrey]
+{
+[]:;
+};
+MS--MoSC: \bAuthentication (opt.)
+[number="no",color=lightgrey]
+{
+[]:;
+};
+MS--MoSC: \bCiphering
+[number="no",color=lightgrey]
+{
+BSC<-MoSC: 	CIPHER-MODE-CMD
+		\iBSSMAP
+[number="yes"];
+BTS<-BSC:	ENCRYPTION-CMD
+		\iBTSM
+[number="yes"];
+[]:;
+BTS--BTS:	BTS wählt sichersten Algorithmus
+		und startet mit Entschlüsselung
+		des Uplinks.;
+[]:;
+MS<-BTS: 	CIPHERING-MODE-CMD
+		\iRR
+[number="yes"];
+[]:;
+MS--MS:		MS startet Ver-/Entschlüsselung von
+		Up-/Downlink.;
+[]:;
+MS->BTS:	CIPHERING-MODE-COMPLETE
+		\iRR
+[number="yes"];
+[]:;
+BTS--BTS:	BTS startet Verschlüsselung des Downlinks.;
+[]:;
+BTS->BSC:	DATA-INDICATION(CIPHER-MODE-COMPLETE)
+		\iRR
+[number="yes"];
+BSC->MoSC:	CIPHER-MODE-COMPLETE
+		\iBSSMAP
+[number="yes"];
+};
+

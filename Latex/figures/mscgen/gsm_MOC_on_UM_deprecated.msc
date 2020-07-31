@@ -1,0 +1,76 @@
+hscale=auto;
+numbering=no;
+defcolor lightblue="172,172,221";
+defcolor lightgreen="172,221,172";
+defcolor lightred="221,172,172";
+defcolor lightgrey="247,247,247";
+MS [label="MS",fill.color=lightblue],
+BTS [label="BTS",fill.color=lightgreen];
+[]:;
+
+MS->BTS: \-\i\[RACH\] \[RR\]\i\+ CHANNEL-REQUEST;	 
+MS<-BTS: \-\i\[PCH\] \[RR\]\i\+ IMMEDIATE-ASSIGNMENT;
+[]:;	 
+MS->BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ SABM(CM-SERVICE-REQUEST);	 
+MS->BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ UA(CM-SERVICE-REQUEST);
+[]:;
+MS--BTS: Identity Request kann IMSI oder IMEI abfragen. Beide können
+	 hintereinander vom Netzwerk verlangt werden.;
+
+MS<-BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ I(N=0)(IDENTITY-REQUEST);
+MS->BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N=1);
+
+MS->BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ I(N=0)(IDENTITY-RESPONSE(IMSI));
+MS<-BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N=1);
+[]:;
+
+MS<-BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ I(N=1)(AUTHENTICATION-REQUEST);
+MS->BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N=2);
+
+MS->BTS: \-\i\[SDCCH\] \[LAPDM\] \[MM\]\i\+ I(N=1)(AUTHENTICATION-RESPONSE);
+MS<-BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N=2);
+[]:;
+
+MS<-BTS: \-\i\[SDCCH\] \[LAPDM\] \[RR\]\i\+ I(N=2)(CIPHERING-MODE-COMMAND);
+BTS--BTS:  \-Start encryption on uplink.\+;
+MS--MS:  \-Start encryption on uplink + downlink.\+;
+MS->BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N=3);
+
+MS->BTS: \-\i\[SDCCH\] \[LAPDM\] \[RR\]\i\+ I(N=2)(CIPHERING-MODE-COMPLETE);
+BTS--BTS:  \-Start encryption on downlink.\+;
+MS<-BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N=3);
+[]:;
+
+MS--BTS: Wegen variabler Länge der Setup message kann sich diese über
+	 mehrere LAPDM Frames strecken.;
+
+MS<-BTS: \-\i\[SDCCH\] \[LAPDM\] \[CC\]\i\+ I(N=3)(SETUP);
+MS->BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N=4);
+
+MS->BTS: \-\i\[SDCCH\] \[LAPDM\] \[CC\]\i\+ I(N=3)(CALL-PROCEEDING);
+MS<-BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N=4);
+[]:;
+
+MS--BTS: Bei Early Assignment wird der TCH ohne Verzögerung zugewiesen, 
+	 ist Late Assignment im Netzwerk konfiguriert, erst nach 
+	 Aufbau des Gesprächs.;
+
+MS<-BTS: \-\i\[SDCCH\] \[LAPDM\] \[RR\]\i\+ I(N=4)(ASSIGNMENT-COMMAND);
+MS->BTS: \-\i\[SDCCH\] \[LAPDM\]\i\+ RR(N=5);
+
+MS->BTS: \-\i\[FACCH\] \[LAPDM\]\i\+ SABM;
+MS->BTS: \-\i\[FACCH\] \[LAPDM\]\i\+ UA;
+
+MS->BTS: \-\i\[FACCH\] \[LAPDM\] \[RR\]\i\+ I(N=0)(ASSIGNMENT-COMPLETE);
+MS<-BTS: \-\i\[FACCH\] \[LAPDM\]\i\+ RR(N=1);
+[]:;
+
+MS<-BTS: \-\i\[FACCH\] \[LAPDM\] \[RR\]\i\+ I(N=0)(CONNECT);
+MS->BTS: \-\i\[FACCH\] \[LAPDM\]\i\+ RR(N=1);
+
+MS->BTS: \-\i\[FACCH\] \[LAPDM\] \[RR\]\i\+ I(N=1)(CONNECT-ACKNOWLEDGE);
+MS->BTS: \-\i\[FACCH\] \[LAPDM\]\i\+ RR(N=2);
+[]:;
+
+block MS<->BTS: \-\i\[TCH\]\i\+ Traffic;
+

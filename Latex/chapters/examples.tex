@@ -1,0 +1,105 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Latex Konstrukte
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Latex Beispiele} \label{hdl:konstrukte}
+\section{Aufzählung} \label{hdl:konstrukte_aufzaehlung}
+\begin{itemize}
+	\item item 1
+	\begin{itemize}
+		\item sub item 11
+		\item sub item 12
+		\item sub item 13
+	\end{itemize}
+	\item item 2
+	\item item 3
+\end{itemize}
+\clearpage
+
+\section{Grafiken} \label{hdl:konstrukte_grafiken}
+\begin{figure}[H]
+\begin{center}
+    \includegraphics[width=1.0\textwidth]{figures/hm_logo_svg.pdf}
+	\caption[Kurzeintrag Verzeichnis Beispielbild]{Text unter Beispielbild} \label{fig:beispielbild}
+\end{center}
+\end{figure}
+
+\begin{wrapfigure}[13]{r}{0.6\textwidth}
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/hm_logo_svg.pdf}
+  \end{center}
+  \caption[Kurzeintrag Verzeichnis Beispielbild wrapped]{Text unter Beispielbild wrapped} \label{fig:beispielbild_wrapped} 
+\end{wrapfigure}
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+\clearpage
+
+\section{Links} \label{hdl:konstrukte_links}
+In \ref{hdl:konstrukte} werden Latex Konstrukte vermittelt.\\
+In \autoref{hdl:konstrukte_aufzaehlung} werden Latex Aufzählungen vermittelt.
+\newline
+In \autoref{hdl:konstrukte_links} (Links) werden Latex Links erklärt.
+\newline
+Ein \fullref{fig:beispielbild_wrapped} (Grafik) kurzer Grafik Link.
+\clearpage
+
+
+\section{Abkürzungen} \label{hdl:konstrukte_abkuerzungen}
+Texte, die eine \acs{Abk.} enthalten, die nicht im Duden steht, sollten ein \acl{Abk.}sverzeichnis haben. Eine \ac{Abk.}, die nicht verwendet wird, steht auch nicht im \acl{Abk.}sverzeichnis.
+\clearpage
+
+\section{Textgestaltung} \label{hdl:konstrukte_textgestaltung}
+\textbf{big}\\
+\textit{\glqq italic\grqq}\\
+\texttt{monospace}\\
+Trenn\-zeichen definieren\\
+\clearpage
+
+\section{Zitate} \label{hdl:konstrukte_zitate}
+Für das Zitieren von Standards und Weblinks wird das Feld AUTHOR im .bib file missbraucht.\\
+\textbf{cite} - nicht benutzen, verhalten nicht klar definiert offenbar\\
+\textit{\glqq Dies ist ein Buchzitat mit Seitenzahl.\grqq}\cite[S.92ff.]{bsp:buchzitat}\\
+\textit{\glqq Dies ist ein Artikelzitat.\grqq}\cite{bsp:artikelzitat}\\
+\textit{\glqq Dies ist ein Weblinkzitat.\grqq}\cite{bsp:weblinkzitat}\\
+\textit{\glqq Dies ist Zitat eines Standards mit Jahr.\grqq}\cite{bsp:techspec}\\
+\textit{\glqq Dies ist Zitat eines Standards ohne Jahr.\grqq}\citeauthor{bsp:techspec}\\
+\textbf{\\citep, natbib functionality}\\
+\textit{\glqq Dies ist ein Buchzitat mit Seitenzahl.\grqq}\citep[S.92ff.]{bsp:buchzitat}\\
+\textit{\glqq Dies ist ein Artikelzitat.\grqq}\citep{bsp:artikelzitat}\\
+\textit{\glqq Dies ist ein Weblinkzitat.\grqq}\citep{bsp:weblinkzitat}\\
+\textit{\glqq Dies ist Zitat eines Standards mit Jahr.\grqq}\citep{bsp:techspec}\\
+\textit{\glqq Dies ist Zitat eines Standards ohne Jahr.\grqq}\citepauthor{bsp:techspec}\\
+\textbf{\\citet, natbib functionality}\\
+Dies ist ein inline Buchzitat mit Seitenzahl wie in \citet[S.92ff.]{bsp:buchzitat}.\\
+Dies ist ein inline Artikelzitat wie in \citet{bsp:artikelzitat}.\\
+Dies ist ein inline Weblinkzitat wie in \citet{bsp:weblinkzitat}.\\
+Dies ist ein inline Zitat eines Standards mit Jahr wie in \citet{bsp:techspec}.\\
+Dies ist ein inline Zitat eines Standards ohne Jahr wie in \citetauthor{bsp:techspec}.\\
+\textbf{\\citetalias and citepalias, natbib functionality}\\
+After defining an alias by the \textbackslash defcitealias\{bsp:buchzitat\}\{buchzitat-alias\} this can be used in text and after a paragraph.\\
+\defcitealias{bsp:buchzitat}{buchzitat-alias}
+\textit{\glqq Dies ist ein Webseitenzitat.\grqq}\citepalias[S.92ff.]{bsp:buchzitat}\\
+Dies ist ein inline Webseitenzitat wie in \citetalias[S.92ff.]{bsp:buchzitat}.\\
+\clearpage
+
+\section{Tabellen} \label{hdl:konstrukte_tabellen}
+\begin{table}[h]\footnotesize
+\begin{center}
+\begin{tabular}{ | p{3cm} | p{5cm} | p{5cm} |}
+  \hline
+    \textbf{Überschrift 1} & \textbf{Überschrift 2} & \textbf{Überschrift 3} \\
+  \hline
+    Inhalt 11 & Inhalt 12 & Inhalt 13 \\
+  \hline
+    Inhalt 21 & Inhalt 22 & Inhalt 23 \\
+  \hline
+    Inhalt 31 & Inhalt 32 & Inhalt 33 \\
+  \hline
+\end{tabular}
+\caption[Kurzeintrag Verzeichnis Beispiel Tabelle]{Text unter Beispiel Tabelle} \label{tab:Beispieltabelle}
+\end{center}
+\end{table}
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Latex Konstrukte ENDE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,40 @@
+\chapter{Osmocom} \label{hdl:grundlagen_osmocom}
+Das \textbf{O}pen \textbf{S}ource \textbf{MO}bile \textbf{COM}munications Projekt ist ein Umbrella-Projekt für freie und quelloffene Software im Bereich der mobilen Telekommunikation. Es umfasst Software und Werkzeuge, die eine Vielzahl von mobilen Kommunikationsstandards wie \ac{GSM}, \ac{UMTS}, \ac{DECT} und \ac{TETRA} implementieren \citep{osmocom}.
+
+Die unter Osmocom vereinigten Projekte werden vom Unternehmen sysmocom\footnote{\url{https://www.sysmocom.de/}} und freien Entwicklern aktiv gepflegt. Der Gründer von Osmocom, wie auch sysmocom ist Harald Welte. Es gibt eine aktive Community, Mailinglisten und in Redmine gepflegte Repositories der verschiedenen Projekte.
+
+Die Software findet im akademischen Bereich Verwendung. Aufgrund des quelloffenen Codes und der vielen Anwendungsmöglichkeiten eignet sie sich, um einen Einblick in die Welt der mobilen Kommunikation zu bekommen \citep{osmocom:bb-project-rationale}.
+
+Kommerziell genutzt werden die Projekte osmoBSC und osmoBTS zum Beispiel von Rhizomatica\footnote{\url{https://www.rhizomatica.org}}, um in Mexiko Bergregionen an ein \ac{GSM}-Netz anzubinden \citep{osmocom:news-rhizomatica}. In der maritimen Telekommunikation bietet On-Waves\footnote{\url{https://www.on-waves.com}} auf OsmoBTS, OsmoPCU und OsmoBSC basierende Lösungen an, um Schiffe mit einem \ac{GSM}-Netz abzudecken \citep{osmocon:onwaves}. Für zwei aktuelle Projekte von Facebook wird ebenfalls Osmocom Technologie verwendet. OpenCellular nutzt osmoBTS und hat die Entwicklung einer robusten Basisstation für den Einsatz in klimatisch anspruchsvollen Regionen zum Ziel \citep{osmocon:opencellular}. Der "`Community Cellular Manager"' soll ein Verwaltungssystem und Abrechnungsmöglichkeiten für mehrere privat verwaltete Netzwerkzellen liefern und implementiert eine Schnittstelle zu osmoBSC \citep{osmocon:communityCellularManager}.
+
+Es gibt mehrere Osmocom Bibliotheken, die in Projekten gemeinsam genutzte Funktionen beinhalten \citep{osmocom:libraries}. Für Debian sind aktuelle Nightly Builds der am häufigsten benutzten Bibliotheken verfügbar \citep{osmocom:nightly-builds}.
+
+Die Projekte, die für den Aufbau eines funktionierenden \ac{GSM}-Netzwerks benötigt werden, werden in den folgenden Kapiteln erklärt. 
+
+\section{OsmocomBB} \label{hdl:grundlagen_osmocom_OsmocomBB}
+OsmocomBB ist eine Open-Source \ac{GSM}-Baseband Implementierung. Das Projekt wurde mit dem Ziel gestartet, proprietäre \ac{GSM}-Baseband Software vollständig zu ersetzen. Es implementiert Treiber für interne und externe, analoge und digitale \ac{GSM} Baseband Peripheriegeräte und den \ac{MS} seitigen \ac{GSM}-Protokollstapel von Schicht 1 bis 3. \citep{osmocom:bb}
+
+Mit OsmocomBB ist es also möglich, auf der Basis von freier Software Mobilfunkdienste (Anrufe, \ac{SMS}) auf einem kompatiblem Handy zu nutzen.
+
+Alle Informationen zum Projekt findet man im Osmocom Wiki\footnote{\url{https://osmocom.org/projects/baseband/wiki}}.
+
+\section{OsmoBTS} \label{hdl:grundlagen_osmocom_OsmoBTS}
+
+OsmoBTS realisiert eine \ac{GSM}-\ac{BTS} in Open-Source. Damit implementiert das Projekt den Protokollstapel der Abis-Schnittstelle zum \ac{BSC} und den netzwerkseitigen Protokollstapel der \ac{Um}-Schnittstelle. Was das Projekt besonders macht ist die Unterstützung einer Vielzahl verschiedener Transceiverhardware und Implementierungen der physikalischen Schicht. OsmoBTS kann zum Beispiel zusammen mit OsmoTRX verwendet werden, um \ac{SDR}-Geräte, wie die \acp{USRP} aus dem Angebot von Ettus Research\footnote{\url{https://www.ettus.com/}}, als Transceiver zu verwenden. \citep[OsmoBTS Benutzerhandbuch]{osmocom:docs-latest}
+
+Die Konfiguration des \ac{BTS} ist zur Laufzeit über ein \ac{VTY} \ac{CLI} möglich.
+
+Alle Informationen zum Projekt findet man im Wiki\footnote{\url{https://osmocom.org/projects/osmobts/wiki/Wiki}} und im Benutzerhandbuch.
+
+\section{OsmoBSC und OsmoNITB} \label{hdl:grundlagen_osmocom_OpenBSC}
+
+OsmoBSC implementiert einen \ac{GSM}-\ac{BSC} und somit den Protokollstapel der Abis-Schnittstelle zur \ac{BTS} und der A-Schnittstelle zum \ac{MSC}. \citep[OsmoBSC Benutzerhandbuch]{osmocom:docs-latest}
+
+Alle Informationen zu OsmoBSC findet man im Wiki\footnote{\url{https://osmocom.org/projects/openbsc/wiki/Osmo-bsc}} und im Benutzerhandbuch.
+
+\acused{NITB}
+OsmoNITB implementiert einen \ac{GSM}-\ac{BSC} als "`Network in the Box"'. Das Projekt realisiert die vollständige Abis-Schnittstelle zur \ac{BTS}, enthält jedoch intern alle nötigen Netzkomponenten und implementiert daher keine A-Schnittstelle. Mit dem \ac{NITB} ist es möglich ein in sich funktionales Netzwerk, bestehend aus dem \ac{NITB} selbst und einer Reihe von angebundenen \ac{BTS}, aufzubauen. \citep[OsmoNITB Benutzerhandbuch]{osmocom:docs-latest}
+
+Alle Informationen zu OsmoNITB findet man im Wiki\footnote{\url{https://osmocom.org/projects/osmonitb/wiki/OsmoNITB}} und im Benutzerhandbuch.
+
+Die Konfiguration von \ac{BSC} und \ac{NITB} ist zur Laufzeit über ein \ac{VTY} \ac{CLI} möglich.

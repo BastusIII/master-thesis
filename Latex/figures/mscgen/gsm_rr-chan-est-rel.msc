@@ -1,0 +1,69 @@
+hscale=auto;
+numbering=no;
+defcolor lightblue="172,172,221";
+defcolor lightgreen="172,221,172";
+defcolor lightred="221,172,172";
+defcolor lightgrey="247,247,247";
+#CCm [label="CC\n\-MS",fill.color=lightblue],
+MMm [label="MM\n\-MS",fill.color=lightblue],
+RRm [label="RR\n\-MS",fill.color=lightblue],
+L2m [label="L2\n\-MS",fill.color=lightblue],
+L2n [label="L2\n\-Netzwerk",fill.color=lightgreen],
+RRn [label="RR\n\-Netzwerk",fill.color=lightgreen],
+MMn [label="MM\n\-Netzwerk",fill.color=lightgreen];
+#CCn [label="CC\n\-Netzwerk",fill.color=lightgreen];
+[]:;
+MMm--MMn: \bRR Establishment \[L3-SERVICE-REQ\]
+[number="no",color=lightgrey]
+{
+MMm->RRm: 	RR-ESTABLISH-REQ(L3-SERVICE-REQ)
+[number="yes"];
+[]:;
+MMm--RRm: 	L3-SERVICE-REQ sagt aus für welchen Layer 3 Service
+		die Verbindung benutzt werden soll;
+[]:;
+RRm->RRn: 	DL-RANDOM-ACCESS-REQ/IND(CHANNEL-REQ)
+		\iRACH
+[number="yes"];
+[]:;
+RRm--RRn:	Request von RRm zu L2m, Indication von L2n zu RRn;		
+[]:;
+RRm<-RRn: 	DL-UNIT-DATA-REQ/IND(IMMEDIATE-ASSIGNMENT)
+		\iAGCH
+[number="yes"];
+RRm->L2m: 	DL-ASSIGNMENT-REQ;
+L2m->L2n: 	SABM(L3-SERVICE-REQ)
+		\iSACCH/SDCCH
+[number="yes"];
+L2n->RRn: 	DL-ESTABLISHED-IND;
+RRn->MMn: 	RR-ESTABLISHED-IND(L3-SERVICE-REQ)
+[number="yes"];
+L2m<-L2n: 	UA(L3-SERVICE-REQ)
+		\iSACCH/SDCCH
+[number="yes"];
+RRm<-L2m:	DL-ESTABLISHED-CNF;
+MMm<-RRm: 	RR-ESTABLISHED-CNF
+[number="yes"];
+};
+...;
+MMm--MMn: \bRR Release
+[number="no",color=lightgrey]
+{
+RRn<-MMn: 	RR-RELEASE-REQ
+[number="yes"];
+RRm<-RRn: 	DL-DATA-REQ/IND(CHANNEL-RELEASE-REQ)
+		\iTCH/SDCCH
+[number="yes"];
+MMm<-RRm: 	RR-RELEASE-IND;
+RRm->L2m: 	DL-RELEASE-REQ;
+L2m->L2n: 	DISC
+		\iTCH/SDCCH
+[number="yes"];
+L2m<-L2n: 	UA
+		\iTCH/SDCCH
+[number="yes"];
+L2n->RRn: 	DL-RELEASE-IND
+[number="yes"];
+RRm<-L2m: 	DL-RELEASE-CNF
+[number="yes"];
+};
